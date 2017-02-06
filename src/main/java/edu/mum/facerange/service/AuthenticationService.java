@@ -4,7 +4,7 @@ import edu.mum.facerange.model.User;
 
 public interface AuthenticationService {
 
-	public boolean authenticating(User user);
+	public User authenticating(User user);
 	
 	public boolean signup(User user);
 	

@@ -22,8 +22,8 @@ public class AuthenticationBeanImpl implements AuthenticationBean {
 
 	@Override
 	public String login() {
-		boolean authenticated = authenticationService.authenticating(user);
-		if (authenticated) {
+		User authenticating = authenticationService.authenticating(user);
+		if (authenticating.getUserId() != null) {
 			return "index";
 		}
 		user.setPassword("");
