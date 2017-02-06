@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2017 at 10:30 PM
+-- Generation Time: Feb 07, 2017 at 12:47 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -136,14 +136,21 @@ CREATE TABLE IF NOT EXISTS `socialmedia` (
 CREATE TABLE IF NOT EXISTS `users` (
   `userid` int(20) unsigned NOT NULL AUTO_INCREMENT,
   `fullname` varchar(100) COLLATE utf8_bin NOT NULL,
-  `gender` int(1) unsigned NOT NULL,
   `email` varchar(100) COLLATE utf8_bin NOT NULL,
   `password` varchar(50) COLLATE utf8_bin NOT NULL,
   `datecreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dateupdated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `dob` date NOT NULL,
+  `dob` date DEFAULT NULL,
+  `gender` varchar(20) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`userid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`userid`, `fullname`, `email`, `password`, `datecreated`, `dateupdated`, `dob`, `gender`) VALUES
+(8, 'henricharles', '2kkhenricharles@gmail.com', '12345', '2017-02-06 22:58:28', '2017-02-06 22:58:28', NULL, 'mal');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
