@@ -11,11 +11,11 @@ import edu.mum.facerange.backingbean.AuthenticationBean;
 import edu.mum.facerange.model.User;
 import edu.mum.facerange.service.AuthenticationService;
 
-@Named("authenticationBean")
-@SessionScoped
+//@Named("authenticationBean")
+//@SessionScoped
 public class AuthenticationBeanImpl implements AuthenticationBean {
 
-	@Inject
+	//@Inject
 	private AuthenticationService authenticationService;
 
 	private User user;
