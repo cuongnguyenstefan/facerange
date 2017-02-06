@@ -5,8 +5,8 @@ import javax.inject.Named;
 
 import edu.mum.facerange.backingbean.UserBean;
 
-@Named("userBean")
-@SessionScoped
+//@Named("userBean")
+//@SessionScoped
 public class UserBeanImpl implements UserBean {
 
 	@Override
