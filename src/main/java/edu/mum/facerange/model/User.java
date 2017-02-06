@@ -8,9 +8,16 @@ public class User {
 	String fullnane;
 	String email;
 	String password;
+	Date dob;
 
 	public int getUserId() {
 		return userId;
+	}
+	public Date getDob() {
+		return dob;
+	}
+	public void setDob(Date dob) {
+		this.dob = dob;
 	}
 	public void setUserId(int userId) {
 		this.userId = userId;
@@ -39,11 +46,6 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Date getDob() {
-		return dob;
-	}
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
+
 
 }
