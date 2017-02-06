@@ -5,4 +5,4 @@
  * @author User
  *
  */
-package edu.mum.facerange.bean;
+package edu.mum.facerange.model;
