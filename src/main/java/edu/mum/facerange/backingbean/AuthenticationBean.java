@@ -1,13 +1,16 @@
 package edu.mum.facerange.backingbean;
 
+import javax.faces.event.ComponentSystemEvent;
+
 public interface AuthenticationBean {
 	
 	public String login();
 	
-	public boolean checkLogin();
+	public void checkLogin(ComponentSystemEvent event);
 	
-	public boolean checkLogged();
+	public void checkLogged(ComponentSystemEvent event);
 	
 	public String signup();
 	
+	public String existUsername();
 }
