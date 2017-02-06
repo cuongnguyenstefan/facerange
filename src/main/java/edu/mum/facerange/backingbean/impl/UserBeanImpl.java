@@ -15,22 +15,4 @@ public class UserBeanImpl implements UserBean {
 		return null;
 	}
 
-	@Override
-	public String post() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String comment() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String like() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
