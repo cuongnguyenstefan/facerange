@@ -1,4 +1,4 @@
-package edu.mum.facerange.bean;
+package edu.mum.facerange.backingbean;
 
 public interface UserBean {
 	
