@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<head>
+<meta charset='UTF-8' />
+<title>Signup</title>
+</head>
+<body>
+	<f:view>
+		<f:event type="preRenderView" listener="#{authenticationBean.checkLogged}"></f:facet>
+		<h1>Signup</h1>
+		<div class="container">
+			<div>
+				<h:inputText value="#{authenticationBean.user.username}"
+					rendered="true" />
+				<h:inputSecret value="#{authenticationBean.user.password}"
+					rendered="true" />
+				<h:inputText value="#{authenticationBean.user.fullname}"
+					rendered="true" />
+				<h:inputText value="#{authenticationBean.user.gender}"
+					rendered="true" />
+				<h:inputText value="#{authenticationBean.user.email}"
+					rendered="true" />
+				<h:inputText value="#{authenticationBean.user.dob}" rendered="true" />
+			</div>
+			<div>
+				<h:commandButton action="#{authenticationBean.signup}" value="Login"></h:commandButton>
+			</div>
+		</div>
+	</f:view>
+</body>
+</html>
