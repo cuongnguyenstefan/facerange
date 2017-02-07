@@ -33,15 +33,15 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 		return "authentication/login?faces-redirect=true";
 	}
 
-	@Override
-	public String signup() {
-		boolean signedup = authenticationService.signup(user);
-		if (signedup) {
-			return "index";
-		}
-		user.setPassword("");
-		return "authentication/signup?faces-redirect=true";
-	}
+//	@Override
+//	public String signup() {
+//		boolean signedup = authenticationService.(user);
+//		if (signedup) {
+//			return "index";
+//		}
+//		user.setPassword("");
+//		return "authentication/signup?faces-redirect=true";
+//	}
 
 	@Override
 	public void checkLogin(ComponentSystemEvent event) {
@@ -78,6 +78,12 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 			return "Username already exists";
 		}
 		return "";
+	}
+
+	@Override
+	public String signup() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
