@@ -13,25 +13,25 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">Feature Images</h3>
 			</div>
-			<div class="panel-body">
-				<ui:repeat var="image" value="#{componentBean.componentImages}">
+			<ui:repeat var="image" value="#{componentBean.componentImages}">
+				<div class="panel-body">
 					<ui:fragment rendered="#{not empty image.image1}">
-						<div class="group-item">
-							<h:graphicImage value="#{image.image1}"></h:graphicImage>
-						</div>
+						<span class="group-item"> <h:graphicImage
+								value="/image?id=#{image.image1}"></h:graphicImage>
+						</span>
 					</ui:fragment>
 					<ui:fragment rendered="#{not empty image.image2}">
-						<div class="group-item">
-							<h:graphicImage value="#{image.image2}"></h:graphicImage>
-						</div>
+						<span class="group-item"> <h:graphicImage
+								value="/image?id=#{image.image2}"></h:graphicImage>
+						</span>
 					</ui:fragment>
 					<ui:fragment rendered="#{not empty image.image3}">
-						<div class="group-item">
-							<h:graphicImage value="#{image.image3}"></h:graphicImage>
-						</div>
+						<span class="group-item"> <h:graphicImage
+								value="/image?id=#{image.image3}"></h:graphicImage>
+						</span>
 					</ui:fragment>
-				</ui:repeat>
-			</div>
+				</div>
+			</ui:repeat>
 		</div>
 	</ui:composition>
 </body>
