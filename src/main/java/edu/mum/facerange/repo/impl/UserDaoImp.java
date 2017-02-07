@@ -21,7 +21,7 @@ public class UserDaoImp implements UserDao {
 			Statement st = con.createStatement();
 			st.executeUpdate(querry);
 
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error while adding user: " + e.getMessage());
 		}
 	}
@@ -57,8 +57,8 @@ public class UserDaoImp implements UserDao {
 	}
 
 	@Override
-	public boolean findUserByEmail(String email) {
+	public User findUserByEmail(String email) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 }
