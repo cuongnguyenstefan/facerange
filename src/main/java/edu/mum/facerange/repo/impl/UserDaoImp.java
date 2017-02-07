@@ -2,10 +2,10 @@ package edu.mum.facerange.repo.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
-
 
 import edu.mum.facerange.model.User;
 import edu.mum.facerange.repo.UserDao;
@@ -14,6 +14,8 @@ import edu.mum.facerange.util.DatabaseUtilities;
 public class UserDaoImp implements UserDao {
 	
 	private static String INSERT_STATEMENT = "Insert into users(fullname,email,gender,password) values(?,?,?,?)";
+	
+	private static String FIND_BY_EMAIL_STATEMENT = "SELECT * FROM users WHERE email = ?";
 
 	@Override
 	public void addUser(User user) {
@@ -61,8 +63,35 @@ public class UserDaoImp implements UserDao {
 	}
 
 	@Override
-	public boolean findUserByEmail(String email) {
-		// TODO Auto-generated method stub
-		return false;
+	public User findUserByEmail(String email) {
+		try {
+			Connection con = DatabaseUtilities.getConnection();
+			PreparedStatement prepareStatement = con.prepareStatement(FIND_BY_EMAIL_STATEMENT);
+			prepareStatement.setString(1, email);
+			ResultSet rs = prepareStatement.executeQuery();
+			List<User> listUserFromResultSet = listUserFromResultSet(rs);
+			if (listUserFromResultSet.size() > 0) {
+				return listUserFromResultSet.get(0);
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			System.out.println("Error while adding user: " + e.getMessage());
+		}
+		return null;
+	}
+	
+	private List<User> listUserFromResultSet(ResultSet rs) throws SQLException {
+		List<User> users = new ArrayList<User>();
+		
+		while (rs.next()) {
+			User user = new User();
+			user.setEmail(rs.getString("email"));
+			user.setFullnane(rs.getString("fullname"));
+			user.setGender(rs.getString("gender"));
+			user.setPassword(rs.getString("password"));
+			user.setUserId(rs.getInt("userid"));
+			users.add(user);
+		}
+		
+		return users;
 	}
 }

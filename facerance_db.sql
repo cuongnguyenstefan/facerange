@@ -145,6 +145,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`userid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=9 ;
 
+
+CREATE TABLE `facerange`.`basicinfo` (
+  `basicinfoid` INT NOT NULL AUTO_INCREMENT,
+  `componentid` INT NOT NULL,
+  `from` VARCHAR(45) NULL,
+  `city` VARCHAR(45) NULL,
+  `job` VARCHAR(45) NULL,
+  `age` VARCHAR(45) NULL,
+  PRIMARY KEY (`basicinfoid`));
 --
 -- Dumping data for table `users`
 --

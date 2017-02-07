@@ -1,34 +1,37 @@
 package edu.mum.facerange.model;
 
+import edu.mum.facerange.enumeration.ComponentType;
+
 public class Component {
-	int userId;
-	int postId;
-	String comment;
-	int commentId;
-	public int getUserId() {
+	private Integer componentId;
+	
+	private ComponentType componentType;
+	
+	private Integer userId;
+
+	public Integer getComponentId() {
+		return componentId;
+	}
+
+	public void setComponentId(Integer componentId) {
+		this.componentId = componentId;
+	}
+
+	public ComponentType getComponentType() {
+		return componentType;
+	}
+
+	public void setComponentType(ComponentType componentType) {
+		this.componentType = componentType;
+	}
+
+	public Integer getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-	public int getPostId() {
-		return postId;
-	}
-	public void setPostId(int postId) {
-		this.postId = postId;
-	}
-	public String getComment() {
-		return comment;
-	}
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
-	public int getCommentId() {
-		return commentId;
-	}
-	public void setCommentId(int commentId) {
-		this.commentId = commentId;
-	}
 	
-
+	
 }
