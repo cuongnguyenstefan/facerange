@@ -1,5 +1,6 @@
 package edu.mum.facerange.repo.impl;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,21 +8,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-
 import edu.mum.facerange.enumeration.ComponentType;
 import edu.mum.facerange.model.Component;
 import edu.mum.facerange.repo.ComponentDao;
 import edu.mum.facerange.util.DatabaseUtilities;
 
-@Named("componentDao")
-@ApplicationScoped
-public class ComponentDaoImpl implements ComponentDao {
+//@Named("componentDao")
+//@ApplicationScoped
+public class ComponentDaoImpl implements ComponentDao, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2560542798642885410L;
 
 	private String SELECT_BY_USERID = "SELECT * FROM component WHERE userid = ?";
 
-	private String INSERT = "INSERT into component(componentid, componenttype, userid) values (?, ?, ?, ?, ?)";
+	private String INSERT = "INSERT into component(componentid, componenttype, userid) values (?, ?, ?)";
 
 	private String DELETE = "DELETE FROM component WHERE componentid = ?";
 
@@ -73,7 +76,7 @@ public class ComponentDaoImpl implements ComponentDao {
 		while (rs.next()) {
 			Component component = new Component();
 			component.setComponentId(rs.getInt("componentid"));
-			component.setComponentType(ComponentType.from(rs.getString("componenttype")));
+			component.setComponentType(ComponentType.from(rs.getString("componenettype")));
 			component.setUserId(rs.getInt("userid"));
 
 			components.add(component);

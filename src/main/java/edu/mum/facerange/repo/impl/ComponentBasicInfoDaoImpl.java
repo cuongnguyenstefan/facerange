@@ -1,5 +1,6 @@
 package edu.mum.facerange.repo.impl;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,16 +8,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-
 import edu.mum.facerange.model.BasicInfo;
 import edu.mum.facerange.repo.ComponentBasicInfoDao;
 import edu.mum.facerange.util.DatabaseUtilities;
 
-@Named("componentBasicInfoDao")
-@ApplicationScoped
-public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao {
+//@Named("componentBasicInfoDao")
+//@ApplicationScoped
+public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private String SELECT_BY_COMPONENTID = "SELECT * FROM basicinfo WHERE componentid = ?";
 

@@ -1,6 +1,8 @@
 package edu.mum.facerange.backingbean.impl;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -12,30 +14,19 @@ import edu.mum.facerange.model.BasicInfo;
 import edu.mum.facerange.model.Component;
 import edu.mum.facerange.model.ComponentImage;
 import edu.mum.facerange.model.SocialMedia;
-import edu.mum.facerange.repo.ComponentBasicInfoDao;
-import edu.mum.facerange.repo.ComponentDao;
-import edu.mum.facerange.repo.ComponentImageDao;
-import edu.mum.facerange.repo.ComponentSocialMediaDao;
-import edu.mum.facerange.util.ComponentUtilities;
+import edu.mum.facerange.service.ComponentService;
+import edu.mum.facerange.service.impl.ComponentServiceImpl;
 
 @Named("componentBean")
 @SessionScoped
-public class ComponentBeanImpl implements ComponentBean {
+public class ComponentBeanImpl implements ComponentBean, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private AuthenticationBeanImpl authenticationBean;
+	AuthenticationBeanImpl authenticationBean;
 
-	@Inject
-	private ComponentDao componentDao;
-
-	@Inject
-	private ComponentBasicInfoDao basicInfoDao;
-
-	@Inject
-	private ComponentImageDao componentImageDao;
-
-	@Inject
-	private ComponentSocialMediaDao componentSocialMediaDao;
+	ComponentService componentService = new  ComponentServiceImpl();
 
 	private List<Component> components;
 
@@ -45,10 +36,18 @@ public class ComponentBeanImpl implements ComponentBean {
 
 	private List<SocialMedia> socialMedias;
 
+	private Map<String, Object> getMapComponents() {
+//		return componentService.getComponents(authenticationBean.getUser().getUserId());
+		return componentService.getComponents(9);
+	}
+
+	@SuppressWarnings("unchecked")
 	public List<Component> getComponents() {
-		if (components == null) {
-			components = componentDao.byUserId(authenticationBean.getUser().getUserId());
+		Map<String, Object> mapComponents = getMapComponents();
+		if (mapComponents == null) {
+			return null;
 		}
+		components = (List<Component>) mapComponents.get(ComponentType.COMPONENT.toString());
 		return components;
 	}
 
@@ -56,14 +55,22 @@ public class ComponentBeanImpl implements ComponentBean {
 		this.components = components;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<BasicInfo> getBasicInfos() {
-		if (basicInfos == null) {
-			Component componentByType = ComponentUtilities.getComponentByType(getComponents(),
-					ComponentType.BASIC_INFO);
-			if (componentByType != null) {
-				basicInfos = basicInfoDao.getByComponentId(componentByType.getComponentId());
-			}
+		// if (basicInfos == null) {
+		// Component componentByType =
+		// ComponentUtilities.getComponentByType(getComponents(),
+		// ComponentType.BASIC_INFO);
+		// if (componentByType != null) {
+		// basicInfos =
+		// basicInfoDao.getByComponentId(componentByType.getComponentId());
+		// }
+		// }
+		Map<String, Object> mapComponents = getMapComponents();
+		if (mapComponents == null) {
+			return null;
 		}
+		basicInfos = (List<BasicInfo>) mapComponents.get(ComponentType.BASIC_INFO.toString());
 		return basicInfos;
 	}
 
@@ -71,14 +78,22 @@ public class ComponentBeanImpl implements ComponentBean {
 		this.basicInfos = basicInfos;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<ComponentImage> getComponentImages() {
-		if (componentImages == null) {
-			Component componentByType = ComponentUtilities.getComponentByType(getComponents(),
-					ComponentType.COMPONENT_IMAGE);
-			if (componentByType != null) {
-				componentImages = componentImageDao.getByComponentId(componentByType.getComponentId());
-			}
+		// if (componentImages == null) {
+		// Component componentByType =
+		// ComponentUtilities.getComponentByType(getComponents(),
+		// ComponentType.COMPONENT_IMAGE);
+		// if (componentByType != null) {
+		// componentImages =
+		// componentImageDao.getByComponentId(componentByType.getComponentId());
+		// }
+		// }
+		Map<String, Object> mapComponents = getMapComponents();
+		if (mapComponents == null) {
+			return null;
 		}
+		componentImages = (List<ComponentImage>) mapComponents.get(ComponentType.COMPONENT_IMAGE.toString());
 		return componentImages;
 	}
 
@@ -86,12 +101,20 @@ public class ComponentBeanImpl implements ComponentBean {
 		this.componentImages = componentImages;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<SocialMedia> getSocialMedias() {
-		Component componentByType = ComponentUtilities.getComponentByType(getComponents(),
-				ComponentType.COMPONENT_IMAGE);
-		if (componentByType != null) {
-			socialMedias = componentSocialMediaDao.getByComponentId(componentByType.getComponentId());
+		// Component componentByType =
+		// ComponentUtilities.getComponentByType(getComponents(),
+		// ComponentType.COMPONENT_IMAGE);
+		// if (componentByType != null) {
+		// socialMedias =
+		// componentSocialMediaDao.getByComponentId(componentByType.getComponentId());
+		// }
+		Map<String, Object> mapComponents = getMapComponents();
+		if (mapComponents == null) {
+			return null;
 		}
+		socialMedias = (List<SocialMedia>) mapComponents.get(ComponentType.SOCIAL_MEDIA.toString());
 		return socialMedias;
 	}
 

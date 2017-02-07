@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
+import edu.mum.facerange.enumeration.ComponentType;
 import edu.mum.facerange.model.BasicInfo;
 import edu.mum.facerange.model.Component;
 import edu.mum.facerange.model.ComponentImage;
@@ -14,22 +13,25 @@ import edu.mum.facerange.repo.ComponentBasicInfoDao;
 import edu.mum.facerange.repo.ComponentDao;
 import edu.mum.facerange.repo.ComponentImageDao;
 import edu.mum.facerange.repo.ComponentSocialMediaDao;
+import edu.mum.facerange.repo.impl.ComponentBasicInfoDaoImpl;
+import edu.mum.facerange.repo.impl.ComponentDaoImpl;
+import edu.mum.facerange.repo.impl.ComponentImageDaoImpl;
+import edu.mum.facerange.repo.impl.ComponentSocialMediaDaoImpl;
 import edu.mum.facerange.service.ComponentService;
-import edu.mum.facerange.util.Constant;
 
 public class ComponentServiceImpl implements ComponentService {
 	
-	@Inject
-	private ComponentDao componentDao;
+//	@Inject
+	private ComponentDao componentDao = new  ComponentDaoImpl();
 	
-	@Inject
-	private ComponentBasicInfoDao componentBasicInfoDao;
+//	@Inject
+	private ComponentBasicInfoDao componentBasicInfoDao = new ComponentBasicInfoDaoImpl();
 	
-	@Inject
-	private ComponentImageDao componentImageDao;
+//	@Inject
+	private ComponentImageDao componentImageDao = new ComponentImageDaoImpl();
 	
-	@Inject
-	private ComponentSocialMediaDao componentSocialMediaDao;
+//	@Inject
+	private ComponentSocialMediaDao componentSocialMediaDao = new ComponentSocialMediaDaoImpl();
 
 	@Override
 	public boolean updateComponents(List<Component> components) {
@@ -44,25 +46,25 @@ public class ComponentServiceImpl implements ComponentService {
 		if (components == null) {
 			return null;
 		}
-		map.put(Constant.COMPONENT_LIST, components);
+		map.put(ComponentType.COMPONENT.toString(), components);
 		for (Component c : components) {
 			switch (c.getComponentType()) {
 			case COMPONENT_IMAGE:
 				List<ComponentImage> byComponentId = componentImageDao.getByComponentId(c.getComponentId());
 				if (byComponentId != null) {
-					map.put(Constant.COMPONENT_IMAGE_LIST, byComponentId);
+					map.put(ComponentType.COMPONENT_IMAGE.toString(), byComponentId);
 				}
 				break;
 			case BASIC_INFO:
 				List<BasicInfo> byComponentId2 = componentBasicInfoDao.getByComponentId(c.getComponentId());
 				if (byComponentId2 != null) {
-					map.put(Constant.COMPONENT_BASICINFO_LIST, byComponentId2);
+					map.put(ComponentType.BASIC_INFO.toString(), byComponentId2);
 				}
 				break;
 			case SOCIAL_MEDIA:
 				List<SocialMedia> byComponentId3 = componentSocialMediaDao.getByComponentId(c.getComponentId());
 				if (byComponentId3 != null) {
-					map.put(Constant.COMPONENT_SOCIALMEDIA_LIST, byComponentId3);
+					map.put(ComponentType.SOCIAL_MEDIA.toString(), byComponentId3);
 				}
 				break;
 			default:

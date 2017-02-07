@@ -2,7 +2,7 @@ package edu.mum.facerange.enumeration;
 
 public enum ComponentType {
 	
-	BASIC_INFO("BASIC_INFO"), COMPONENT_IMAGE("COMPONENT_IMAGE"), SOCIAL_MEDIA("SOCIAL_MEDIA");
+	BASIC_INFO("BASIC_INFO"), COMPONENT_IMAGE("COMPONENT_IMAGE"), SOCIAL_MEDIA("SOCIAL_MEDIA"), COMPONENT("COMPONENT");
 	
 	private final String val;
 	
