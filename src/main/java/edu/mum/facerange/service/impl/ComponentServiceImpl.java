@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
 import edu.mum.facerange.enumeration.ComponentType;
 import edu.mum.facerange.model.BasicInfo;
 import edu.mum.facerange.model.Component;
@@ -13,25 +16,22 @@ import edu.mum.facerange.repo.ComponentBasicInfoDao;
 import edu.mum.facerange.repo.ComponentDao;
 import edu.mum.facerange.repo.ComponentImageDao;
 import edu.mum.facerange.repo.ComponentSocialMediaDao;
-import edu.mum.facerange.repo.impl.ComponentBasicInfoDaoImpl;
-import edu.mum.facerange.repo.impl.ComponentDaoImpl;
-import edu.mum.facerange.repo.impl.ComponentImageDaoImpl;
-import edu.mum.facerange.repo.impl.ComponentSocialMediaDaoImpl;
 import edu.mum.facerange.service.ComponentService;
 
+@ApplicationScoped
 public class ComponentServiceImpl implements ComponentService {
 	
-//	@Inject
-	private ComponentDao componentDao = new  ComponentDaoImpl();
+	@Inject
+	private ComponentDao componentDao/* = new  ComponentDaoImpl()*/;
 	
-//	@Inject
-	private ComponentBasicInfoDao componentBasicInfoDao = new ComponentBasicInfoDaoImpl();
+	@Inject
+	private ComponentBasicInfoDao componentBasicInfoDao/* = new ComponentBasicInfoDaoImpl()*/;
 	
-//	@Inject
-	private ComponentImageDao componentImageDao = new ComponentImageDaoImpl();
+	@Inject
+	private ComponentImageDao componentImageDao/* = new ComponentImageDaoImpl()*/;
 	
-//	@Inject
-	private ComponentSocialMediaDao componentSocialMediaDao = new ComponentSocialMediaDaoImpl();
+	@Inject
+	private ComponentSocialMediaDao componentSocialMediaDao/* = new ComponentSocialMediaDaoImpl()*/;
 
 	@Override
 	public boolean updateComponents(List<Component> components) {

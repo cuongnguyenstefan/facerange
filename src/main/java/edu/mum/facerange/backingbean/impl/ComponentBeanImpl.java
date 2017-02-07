@@ -15,7 +15,6 @@ import edu.mum.facerange.model.Component;
 import edu.mum.facerange.model.ComponentImage;
 import edu.mum.facerange.model.SocialMedia;
 import edu.mum.facerange.service.ComponentService;
-import edu.mum.facerange.service.impl.ComponentServiceImpl;
 
 @Named("componentBean")
 @SessionScoped
@@ -26,7 +25,8 @@ public class ComponentBeanImpl implements ComponentBean, Serializable {
 	@Inject
 	AuthenticationBeanImpl authenticationBean;
 
-	ComponentService componentService = new  ComponentServiceImpl();
+	@Inject
+	ComponentService componentService;/* = new  ComponentServiceImpl();*/
 
 	private List<Component> components;
 

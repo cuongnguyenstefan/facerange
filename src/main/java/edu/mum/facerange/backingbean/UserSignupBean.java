@@ -18,13 +18,14 @@ import org.primefaces.model.UploadedFile;
 
 import edu.mum.facerange.model.User;
 import edu.mum.facerange.service.AuthenticationService;
-
-@Named("userbean")
-@SessionScoped
+//
+//@Named("userbean")
+//@SessionScoped
 public class UserSignupBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private UploadedFile profilepic;
-	@Inject AuthenticationService auth;
+//	@Inject 
+	AuthenticationService auth;
 	User user;
 	
 	public User getUser() {
