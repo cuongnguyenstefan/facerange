@@ -15,8 +15,9 @@ public class UserDaoImp implements UserDao {
 	public void addUser(User user) {
 		try {
 			Connection con = DatabaseUtilities.getConnection();
-			String querry = "insert into users(fullname,email,gender,password) values('" + user.getFullnane() + "','"
-					+ user.getEmail() + "','" + user.getGender() + "','" + user.getPassword() + "')";
+			String querry = "insert into users(fullname,email,gender,password,username,picture,gender,dob) values('" + user.getFullnane() + "','"
+					+ user.getEmail() + "','" + user.getGender() + "','" + user.getPassword() + "','" + user.getUserName() + "'"
+							+ ",'" + user.getPicture() + "','" + user.getGender() + "','" + user.getDob() + "')";
 			Statement st = con.createStatement();
 			st.executeUpdate(querry);
 
@@ -25,17 +26,17 @@ public class UserDaoImp implements UserDao {
 		}
 	}
 
-	public static void main(String arg[]) {
-		UserDaoImp doaim = new UserDaoImp();
-		User user = new User();
-		user.setEmail("2kkhenricharles@gmail.com");
-		user.setFullnane("henricharles");
-		user.setGender("mal");
-		user.setPassword("12345");
-		doaim.addUser(user);
-		System.out.println("sucess created");
-
-	}
+//	public static void main(String arg[]) {
+//		UserDaoImp doaim = new UserDaoImp();
+//		User user = new User();
+//		user.setEmail("2kkhenricharles@gmail.com");
+//		user.setFullnane("henricharles");
+//		user.setGender("mal");
+//		user.setPassword("12345");
+//		doaim.addUser(user);
+//		System.out.println("sucess created");
+//
+//	}
 
 	@Override
 	public boolean deleteByEmail(String email) {
