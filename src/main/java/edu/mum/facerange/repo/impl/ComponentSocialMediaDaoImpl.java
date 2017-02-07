@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.mum.facerange.model.SocialMedia;
-import edu.mum.facerange.repo.ComponentSocialMedia;
+import edu.mum.facerange.repo.ComponentSocialMediaDao;
 import edu.mum.facerange.util.DatabaseUtilities;
 
-public class ComponentSocialMediaImpl implements ComponentSocialMedia {
+public class ComponentSocialMediaDaoImpl implements ComponentSocialMediaDao {
 	
 	private String SELECT_BY_COMPONENTID = "SELECT * FROM socialmedia WHERE componentid = ?";
 
@@ -37,7 +37,7 @@ public class ComponentSocialMediaImpl implements ComponentSocialMedia {
 	}
 
 	@Override
-	public SocialMedia getByComponentId(int id) {
+	public List<SocialMedia> getByComponentId(int id) {
 		try {
 			Connection con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(SELECT_BY_COMPONENTID);
@@ -45,7 +45,7 @@ public class ComponentSocialMediaImpl implements ComponentSocialMedia {
 			ResultSet executeQuery = prepareStatement.executeQuery();
 			List<SocialMedia> socialMedias = listComponentSocialMediaFromResultSet(executeQuery);
 			if (socialMedias.size() > 0) {
-				return socialMedias.get(0);
+				return socialMedias;
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			System.out.println("Error while finding component social media with id - " + id + ": " + e.getMessage());

@@ -19,7 +19,7 @@ public class ComponentImageDaoImpl implements ComponentImageDao {
 	
 	private String DELETE = "DELETE FROM componentimage WHERE componentid = ?";
 
-	public ComponentImage getByComponentId(int id) {
+	public List<ComponentImage> getByComponentId(int id) {
 		try {
 			Connection con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(SELECT_BY_COMPONENTID);
@@ -27,7 +27,7 @@ public class ComponentImageDaoImpl implements ComponentImageDao {
 			ResultSet executeQuery = prepareStatement.executeQuery();
 			List<ComponentImage> listComponentImageFromResultSet = listComponentImageFromResultSet(executeQuery);
 			if (listComponentImageFromResultSet.size() > 0) {
-				return listComponentImageFromResultSet.get(0);
+				return listComponentImageFromResultSet;
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			System.out.println("Error while finding component image with id - " + id + ": " + e.getMessage());

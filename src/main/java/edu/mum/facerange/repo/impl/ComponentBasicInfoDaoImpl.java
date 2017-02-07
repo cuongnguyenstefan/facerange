@@ -19,7 +19,7 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao {
 
 	private String DELETE = "DELETE FROM basicinfo WHERE componentid = ?";
 
-	public BasicInfo getByComponentId(int id) {
+	public List<BasicInfo> getByComponentId(int id) {
 		try {
 			Connection con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(SELECT_BY_COMPONENTID);
@@ -27,7 +27,7 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao {
 			ResultSet executeQuery = prepareStatement.executeQuery();
 			List<BasicInfo> basicInfos = listComponentBasicInfoFromResultSet(executeQuery);
 			if (basicInfos.size() > 0) {
-				return basicInfos.get(0);
+				return basicInfos;
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			System.out.println("Error while finding component basic info with id - " + id + ": " + e.getMessage());

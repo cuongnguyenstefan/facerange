@@ -1,10 +1,12 @@
 package edu.mum.facerange.repo;
 
+import java.util.List;
+
 import edu.mum.facerange.model.SocialMedia;
 
-public interface ComponentSocialMedia {
+public interface ComponentSocialMediaDao {
 
-	public SocialMedia getByComponentId(int id);
+	public List<SocialMedia> getByComponentId(int id);
 	
 	public boolean add(SocialMedia socialMedia);
 	
