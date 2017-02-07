@@ -2,6 +2,7 @@ package edu.mum.facerange.backingbean.impl;
 
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -19,7 +20,7 @@ import edu.mum.facerange.repo.ComponentSocialMediaDao;
 import edu.mum.facerange.util.ComponentUtilities;
 
 @Named("componentBean")
-@SessionScoped
+@RequestScoped
 public class ComponentBeanImpl implements ComponentBean {
 
 	@Inject

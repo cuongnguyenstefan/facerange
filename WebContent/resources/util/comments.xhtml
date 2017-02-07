@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>	
+	<composite:attribute name="postId" />
+	<composite:attribute name="comment" />
+	<composite:attribute name="comments" />
+	<composite:attribute name="commentAction"
+		method-signature="java.lang.String doAction()" />
+
+	<composite:actionSource name="commentButton"
+		targets="commentform:commentButton" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<div class="comment-form">
+		<h:form id="commentform" styleClass="form-inline">
+			<div class="form-group">
+				<h:inputText id="comment" value="#{cc.attrs.comment}"
+					styleClass="form-control" a:placeholder="enter comment" />
+			</div>
+			<h:inputHidden id="postid" value="#{cc.attrs.postId}" ></h:inputHidden>
+			<h:commandButton id="commentButton" value="Add"
+				styleClass="btn btn-default" action="#{cc.attrs.commentAction}">
+			</h:commandButton>
+		</h:form>
+	</div>
+	<div class="clearfix"></div>
+
+	<div class="comments">
+
+		<ui:repeat id="comments" value="#{cc.attrs.comments}" var="comment">
+			<div class="comment">
+				<h:outputLink value="#" class="comment-avatar pull-left">
+					<h:graphicImage value="#{resource['images:user.png']}"></h:graphicImage>
+				</h:outputLink>
+				<div class="comment-text">
+					<p>#{comment.comment}</p>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</ui:repeat>
+	</div>
+
+</composite:implementation>
+</html>

@@ -4,7 +4,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:util="http://xmlns.jcp.org/jsf/composite/util"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <head>
 <title>IGNORED</title>
@@ -18,160 +20,66 @@
 			<div class="panel-body">
 				<h:form>
 					<div class="form-group">
-						<h:inputTextarea styleClass="form-control" p:placeholder="Write on the wall" value="#{post.status}" />
+						<h:inputTextarea id="status" styleClass="form-control"
+							a:placeholder="Write on the wall" value="#{postBean.status}" />
 					</div>
-					
-					<h:commandButton value="Submit" styleClass="btn btn-primary" action="#{post.addPost}">
-					
-					</h:commandButton>
-					
+
 					<div class="pull-right">
-						<div class="btn-toolbar">
-							<button type="button" class="btn btn-default">
-								<i class="fa fa-pencil"></i>Text
-							</button>
-							<button type="button" class="btn btn-default">
-								<i class="fa fa-file-image-o"></i>Image
-							</button>
-							<button type="button" class="btn btn-default">
-								<i class="fa fa-file-video-o"></i>Video
-							</button>
-						</div>
+						<h:commandButton value="Submit" styleClass="btn btn-primary"
+							action="#{postBean.addPost}">
+							<f:ajax execute="@form" render="status posts"></f:ajax>
+						</h:commandButton>
 					</div>
 				</h:form>
 			</div>
 		</div>
 
-		<div class="panel panel-default post">
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-sm-2">
-						<h:outputLink value="profile.html" class="post-avatar thumbnail">
-							<h:graphicImage value="#{resource['images:user.png']}"></h:graphicImage>
-							<div class="text-center">DevUser1</div>
-						</h:outputLink>
-						<div class="likes text-center">7 Likes</div>
-					</div>
-					<div class="col-sm-10">
-						<div class="bubble">
-							<div class="pointer">
-								<p>Hey I was wondering if you wanted to go check out the
-									football game later. I heard they are supposed to be really
-									good!</p>
-							</div>
-							<div class="pointer-border"></div>
-						</div>
-						<p class="post-actions">
-							<h:outputLink value="#">Comment</h:outputLink>
-							-
-							<h:outputLink value="#">Like</h:outputLink>
-							-
-							<h:outputLink value="#">Follow</h:outputLink>
-							-
-							<h:outputLink value="#">Share</h:outputLink>
-						</p>
-						<div class="comment-form">
-							<form class="form-inline">
-								<div class="form-group">
-									<input type="text" class="form-control"
-										placeholder="enter comment" />
-								</div>
-								<button type="submit" class="btn btn-default">Add</button>
-							</form>
-						</div>
-						<div class="clearfix"></div>
+		<p:dataScroller id="posts" value="#{postBean.posts}" var="post"
+			chunkSize="3">
+			<div class="panel panel-default post">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-sm-2">
+							<h:outputLink value="profile.html" class="post-avatar thumbnail">
+								<h:graphicImage value="#{resource['images:user.png']}"></h:graphicImage>
+								<div class="text-center">#{postBean.user.fullnane}</div>
+							</h:outputLink>
+							<div class="likes text-center">
+								<h:form>
+									<h:commandLink title="Edit post" styleClass="edit-button">
+										<span class="glyphicon glyphicon-pencil"></span>
+									</h:commandLink>
+									<h:commandLink title="Remove post" onclick="return confirm('Are you sure you want to delete this post?');"
+											action="#{postBean.deletePost(post.postId)}" styleClass="edit-button">
+										<span class="glyphicon glyphicon-remove"></span>
+										<f:ajax render="posts"></f:ajax>
+									</h:commandLink>
+								</h:form>
 
-						<div class="comments">
-							<div class="comment">
-								<h:outputLink value="#" class="comment-avatar pull-left">
-									<h:graphicImage value="#{resource['images:user.png']}"></h:graphicImage>
-								</h:outputLink>
-								<div class="comment-text">
-									<p>I am just going to paste in a paragraph, then we will
-										add another clearfix.</p>
-								</div>
 							</div>
-							<div class="clearfix"></div>
-							<div class="comment">
-								<h:outputLink value="#" class="comment-avatar pull-left">
-									<h:graphicImage value="#{resource['images:user.png']}"></h:graphicImage>
-								</h:outputLink>
-								<div class="comment-text">
-									<p>I am just going to paste in a paragraph, then we will
-										add another clearfix.</p>
+						</div>
+						<div class="col-sm-10">
+							<div class="bubble">
+								<div class="pointer">
+									<p>#{post.post}</p>
 								</div>
+								<div class="pointer-border"></div>
 							</div>
-							<div class="clearfix"></div>
+							<p class="post-actions">
+								<h:outputLink value="#">Comment</h:outputLink>
+								-
+								<h:outputLink value="#">Like</h:outputLink>
+							</p>
+							<util:comments postId="#{post.postId}" 									
+									comments="#{commentBean.getComments(post.postId)}">
+								<f:actionListener type="edu.mum.facerange.backingbean.impl.CommentActionListener" for="commentButton"/>		
+							</util:comments>						
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="panel panel-default post">
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-sm-2">
-						<h:outputLink value="profile.html" class="post-avatar thumbnail">
-							<h:graphicImage value="#{resource['images:user.png']}"></h:graphicImage>
-							<div class="text-center">DevUser1</div>
-						</h:outputLink>
-						<div class="likes text-center">7 Likes</div>
-					</div>
-					<div class="col-sm-10">
-						<div class="bubble">
-							<div class="pointer">
-								<p>Hey I was wondering if you wanted to go check out the
-									football game later. I heard they are supposed to be really
-									good!</p>
-							</div>
-							<div class="pointer-border"></div>
-						</div>
-						<p class="post-actions">
-							<h:outputLink value="#">Comment</h:outputLink>
-							-
-							<h:outputLink value="#">Like</h:outputLink>
-							-
-							<h:outputLink value="#">Follow</h:outputLink>
-							-
-							<h:outputLink value="#">Share</h:outputLink>
-						</p>
-						<div class="comment-form">
-							<form class="form-inline">
-								<div class="form-group">
-									<input type="text" class="form-control"
-										placeholder="enter comment" />
-								</div>
-								<button type="submit" class="btn btn-default">Add</button>
-							</form>
-						</div>
-						<div class="clearfix"></div>
 
-						<div class="comments">
-							<div class="comment">
-								<h:outputLink value="#" class="comment-avatar pull-left">
-									<h:graphicImage value="#{resource['images:user.png']}"></h:graphicImage>
-								</h:outputLink>
-								<div class="comment-text">
-									<p>I am just going to paste in a paragraph, then we will
-										add another clearfix.</p>
-								</div>
-							</div>
-							<div class="clearfix"></div>
-							<div class="comment">
-								<h:outputLink value="#" class="comment-avatar pull-left">
-									<h:graphicImage value="#{resource['images:user.png']}"></h:graphicImage>
-								</h:outputLink>
-								<div class="comment-text">
-									<p>I am just going to paste in a paragraph, then we will
-										add another clearfix.</p>
-								</div>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		</p:dataScroller>
 
 	</ui:composition>
 </body>
