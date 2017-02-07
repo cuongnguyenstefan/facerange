@@ -1,6 +1,6 @@
 package edu.mum.facerange.model;
 
-public class CompinentImage {
+public class ComponentImage {
 	int imageId;
 	int componentId;
 	String image1;

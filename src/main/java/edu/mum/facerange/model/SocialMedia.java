@@ -1,41 +1,59 @@
 package edu.mum.facerange.model;
 
 public class SocialMedia {
-	int socialmediaId;
-	int componenetId;
-	String facebookLink;
-	String youtubeLink;
-	String instagramLInk;
-	public int getSocialmediaId() {
+	private Integer socialmediaId;
+	private Integer componentId;
+	private String facebookLink;
+	private String youtubeLink;
+	private String instagramLink;
+	private String twitterLink;
+
+	public Integer getSocialmediaId() {
 		return socialmediaId;
 	}
-	public void setSocialmediaId(int socialmediaId) {
+
+	public void setSocialmediaId(Integer socialmediaId) {
 		this.socialmediaId = socialmediaId;
 	}
-	public int getComponenetId() {
-		return componenetId;
-	}
-	public void setComponenetId(int componenetId) {
-		this.componenetId = componenetId;
-	}
+
 	public String getFacebookLink() {
 		return facebookLink;
 	}
+
 	public void setFacebookLink(String facebookLink) {
 		this.facebookLink = facebookLink;
 	}
+
 	public String getYoutubeLink() {
 		return youtubeLink;
 	}
+
 	public void setYoutubeLink(String youtubeLink) {
 		this.youtubeLink = youtubeLink;
 	}
-	public String getInstagramLInk() {
-		return instagramLInk;
+
+	public String getTwitterLink() {
+		return twitterLink;
 	}
-	public void setInstagramLInk(String instagramLInk) {
-		this.instagramLInk = instagramLInk;
+
+	public void setTwitterLink(String twitterLink) {
+		this.twitterLink = twitterLink;
 	}
-	
+
+	public Integer getComponentId() {
+		return componentId;
+	}
+
+	public void setComponentId(Integer componentId) {
+		this.componentId = componentId;
+	}
+
+	public String getInstagramLink() {
+		return instagramLink;
+	}
+
+	public void setInstagramLink(String instagramLink) {
+		this.instagramLink = instagramLink;
+	}
 
 }
