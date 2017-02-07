@@ -57,15 +57,6 @@ public class ComponentBeanImpl implements ComponentBean, Serializable {
 
 	@SuppressWarnings("unchecked")
 	public List<BasicInfo> getBasicInfos() {
-		// if (basicInfos == null) {
-		// Component componentByType =
-		// ComponentUtilities.getComponentByType(getComponents(),
-		// ComponentType.BASIC_INFO);
-		// if (componentByType != null) {
-		// basicInfos =
-		// basicInfoDao.getByComponentId(componentByType.getComponentId());
-		// }
-		// }
 		Map<String, Object> mapComponents = getMapComponents();
 		if (mapComponents == null) {
 			return null;
@@ -80,15 +71,6 @@ public class ComponentBeanImpl implements ComponentBean, Serializable {
 
 	@SuppressWarnings("unchecked")
 	public List<ComponentImage> getComponentImages() {
-		// if (componentImages == null) {
-		// Component componentByType =
-		// ComponentUtilities.getComponentByType(getComponents(),
-		// ComponentType.COMPONENT_IMAGE);
-		// if (componentByType != null) {
-		// componentImages =
-		// componentImageDao.getByComponentId(componentByType.getComponentId());
-		// }
-		// }
 		Map<String, Object> mapComponents = getMapComponents();
 		if (mapComponents == null) {
 			return null;
@@ -103,13 +85,6 @@ public class ComponentBeanImpl implements ComponentBean, Serializable {
 
 	@SuppressWarnings("unchecked")
 	public List<SocialMedia> getSocialMedias() {
-		// Component componentByType =
-		// ComponentUtilities.getComponentByType(getComponents(),
-		// ComponentType.COMPONENT_IMAGE);
-		// if (componentByType != null) {
-		// socialMedias =
-		// componentSocialMediaDao.getByComponentId(componentByType.getComponentId());
-		// }
 		Map<String, Object> mapComponents = getMapComponents();
 		if (mapComponents == null) {
 			return null;
