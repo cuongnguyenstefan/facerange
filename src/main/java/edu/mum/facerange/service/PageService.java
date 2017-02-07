@@ -14,13 +14,7 @@ public interface PageService {
 	// add comment on a status
 	public boolean comment();
 	
-	// for user to get their list of components - can be used in loading page and edit page
-	public boolean getComponents();
-	
-	// for user to update their components.
-	public boolean updateComponents();
-	
-	// give in post id, last comment timestamp
+	// give in post id, last comment id
 	public boolean getNewComments();
 
 }

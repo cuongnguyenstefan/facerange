@@ -2,7 +2,7 @@ package edu.mum.facerange.model;
 
 public class SocialMedia {
 	private Integer socialmediaId;
-	private Integer componenetId;
+	private Integer componentId;
 	private String facebookLink;
 	private String youtubeLink;
 	private String instagramLink;
@@ -14,14 +14,6 @@ public class SocialMedia {
 
 	public void setSocialmediaId(Integer socialmediaId) {
 		this.socialmediaId = socialmediaId;
-	}
-
-	public Integer getComponenetId() {
-		return componenetId;
-	}
-
-	public void setComponenetId(Integer componenetId) {
-		this.componenetId = componenetId;
 	}
 
 	public String getFacebookLink() {
@@ -40,20 +32,28 @@ public class SocialMedia {
 		this.youtubeLink = youtubeLink;
 	}
 
-	public String getInstagramLInk() {
-		return instagramLink;
-	}
-
-	public void setInstagramLInk(String instagramLInk) {
-		this.instagramLink = instagramLInk;
-	}
-
 	public String getTwitterLink() {
 		return twitterLink;
 	}
 
 	public void setTwitterLink(String twitterLink) {
 		this.twitterLink = twitterLink;
+	}
+
+	public Integer getComponentId() {
+		return componentId;
+	}
+
+	public void setComponentId(Integer componentId) {
+		this.componentId = componentId;
+	}
+
+	public String getInstagramLink() {
+		return instagramLink;
+	}
+
+	public void setInstagramLink(String instagramLink) {
+		this.instagramLink = instagramLink;
 	}
 
 }

@@ -4,10 +4,10 @@ import edu.mum.facerange.model.SocialMedia;
 
 public interface ComponentSocialMedia {
 
-	public SocialMedia getById(int id);
+	public SocialMedia getByComponentId(int id);
 	
 	public boolean add(SocialMedia socialMedia);
 	
-	public boolean removeById(int id);
+	public boolean removeByComponentId(int id);
 	
 }

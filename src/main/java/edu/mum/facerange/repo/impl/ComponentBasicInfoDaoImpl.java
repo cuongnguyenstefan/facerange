@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.mum.facerange.model.BasicInfo;
-import edu.mum.facerange.model.ComponentImage;
 import edu.mum.facerange.repo.ComponentBasicInfoDao;
 import edu.mum.facerange.util.DatabaseUtilities;
 
@@ -31,7 +30,7 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao {
 				return basicInfos.get(0);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println("Error while finding component image with id - " + id + ": " + e.getMessage());
+			System.out.println("Error while finding component basic info with id - " + id + ": " + e.getMessage());
 		}
 		return null;
 	}
@@ -47,7 +46,7 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao {
 			prepareStatement.setInt(5, basicInfo.getAge());
 			prepareStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println("Error while adding component image: " + e.getMessage());
+			System.out.println("Error while adding component basic info: " + e.getMessage());
 			return false;
 		}
 		return true;
@@ -60,7 +59,7 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao {
 			prepareStatement.setInt(1, id);
 			prepareStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
-			System.out.println("Error while removing component image - " + id + " " + e.getMessage());
+			System.out.println("Error while removing component basic info - " + id + " " + e.getMessage());
 			return false;
 		}
 		return true;
@@ -71,7 +70,12 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao {
 		
 		while (rs.next()) {
 			BasicInfo basicInfo = new BasicInfo();
-			
+			basicInfo.setAge(rs.getInt("age"));
+			basicInfo.setBasicinfoId(rs.getInt("basicinfoid"));
+			basicInfo.setCity(rs.getString("city"));
+			basicInfo.setComponentId(rs.getInt("componentid"));
+			basicInfo.setFrom(rs.getString("from"));
+			basicInfo.setJob(rs.getString("job"));
 			
 			basicInfos.add(basicInfo);
 		}
