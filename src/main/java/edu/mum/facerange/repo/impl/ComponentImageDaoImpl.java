@@ -29,7 +29,7 @@ public class ComponentImageDaoImpl implements ComponentImageDao {
 			if (listComponentImageFromResultSet.size() > 0) {
 				return listComponentImageFromResultSet;
 			}
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error while finding component image with id - " + id + ": " + e.getMessage());
 		}
 		return null;
@@ -44,7 +44,7 @@ public class ComponentImageDaoImpl implements ComponentImageDao {
 			prepareStatement.setString(3, componentImage.getImage2());
 			prepareStatement.setString(4, componentImage.getImage3());
 			prepareStatement.executeUpdate();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error while adding component image: " + e.getMessage());
 			return false;
 		}
@@ -57,7 +57,7 @@ public class ComponentImageDaoImpl implements ComponentImageDao {
 			PreparedStatement prepareStatement = con.prepareStatement(DELETE);
 			prepareStatement.setInt(1, id);
 			prepareStatement.executeUpdate();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error while removing component image - " + id + " " + e.getMessage());
 			return false;
 		}

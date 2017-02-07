@@ -9,11 +9,16 @@ public class DatabaseUtilities {
 	private DatabaseUtilities() {
 	}
 
-	public static Connection getConnection() throws ClassNotFoundException, SQLException {
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection(Configuration.DATABASE_URL, Configuration.DATABASE_USERNAME,
-				Configuration.DATABASE_PASSWORD);
-		return con;
+	public static Connection getConnection() throws SQLException {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection con = DriverManager.getConnection(Configuration.DATABASE_URL, Configuration.DATABASE_USERNAME,
+					Configuration.DATABASE_PASSWORD);
+			return con;
+		} catch (ClassNotFoundException e) {
+			System.out.println("Database.getConnection() Error -->" + e.getMessage());
+			return null;
+		}
 	}
 
 }

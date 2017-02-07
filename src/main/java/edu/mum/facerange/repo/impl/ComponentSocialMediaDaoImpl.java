@@ -47,7 +47,7 @@ public class ComponentSocialMediaDaoImpl implements ComponentSocialMediaDao {
 			if (socialMedias.size() > 0) {
 				return socialMedias;
 			}
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error while finding component social media with id - " + id + ": " + e.getMessage());
 		}
 		return null;
@@ -64,7 +64,7 @@ public class ComponentSocialMediaDaoImpl implements ComponentSocialMediaDao {
 			prepareStatement.setString(4, socialMedia.getTwitterLink());
 			prepareStatement.setString(5, socialMedia.getYoutubeLink());
 			prepareStatement.executeUpdate();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error while adding component social media: " + e.getMessage());
 			return false;
 		}
@@ -78,7 +78,7 @@ public class ComponentSocialMediaDaoImpl implements ComponentSocialMediaDao {
 			PreparedStatement prepareStatement = con.prepareStatement(DELETE);
 			prepareStatement.setInt(1, id);
 			prepareStatement.executeUpdate();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error while removing component social media - " + id + " " + e.getMessage());
 			return false;
 		}

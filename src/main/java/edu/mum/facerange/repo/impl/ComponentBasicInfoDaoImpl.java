@@ -29,7 +29,7 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao {
 			if (basicInfos.size() > 0) {
 				return basicInfos;
 			}
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error while finding component basic info with id - " + id + ": " + e.getMessage());
 		}
 		return null;
@@ -45,7 +45,7 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao {
 			prepareStatement.setString(4, basicInfo.getJob());
 			prepareStatement.setInt(5, basicInfo.getAge());
 			prepareStatement.executeUpdate();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error while adding component basic info: " + e.getMessage());
 			return false;
 		}
@@ -58,7 +58,7 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao {
 			PreparedStatement prepareStatement = con.prepareStatement(DELETE);
 			prepareStatement.setInt(1, id);
 			prepareStatement.executeUpdate();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error while removing component basic info - " + id + " " + e.getMessage());
 			return false;
 		}

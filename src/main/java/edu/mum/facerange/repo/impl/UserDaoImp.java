@@ -27,7 +27,7 @@ public class UserDaoImp implements UserDao {
 			prepareStatement.setString(3, user.getGender());
 			prepareStatement.setString(4, user.getPassword());
 			prepareStatement.executeUpdate();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error while adding user: " + e.getMessage());
 		}
 	}
@@ -73,7 +73,7 @@ public class UserDaoImp implements UserDao {
 			if (listUserFromResultSet.size() > 0) {
 				return listUserFromResultSet.get(0);
 			}
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error while adding user: " + e.getMessage());
 		}
 		return null;

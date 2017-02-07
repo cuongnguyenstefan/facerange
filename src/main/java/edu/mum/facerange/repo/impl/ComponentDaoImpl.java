@@ -28,7 +28,7 @@ public class ComponentDaoImpl implements ComponentDao {
 			ResultSet executeQuery = prepareStatement.executeQuery();
 			List<Component> components = listComponentFromResultSet(executeQuery);
 			return components;
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error while finding component basic info with id - " + userId + ": " + e.getMessage());
 		}
 		return null;
@@ -42,7 +42,7 @@ public class ComponentDaoImpl implements ComponentDao {
 			prepareStatement.setString(2, component.getComponentType().toString());
 			prepareStatement.setInt(3, component.getUserId());
 			prepareStatement.executeUpdate();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error while adding component basic info: " + e.getMessage());
 			return false;
 		}
@@ -55,7 +55,7 @@ public class ComponentDaoImpl implements ComponentDao {
 			PreparedStatement prepareStatement = con.prepareStatement(DELETE);
 			prepareStatement.setInt(1, componentId);
 			prepareStatement.executeUpdate();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error while removing component basic info - " + componentId + " " + e.getMessage());
 			return false;
 		}
