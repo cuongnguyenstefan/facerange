@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `datecreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dateupdated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `dob` date DEFAULT NULL,
-  `gender` varchar(20) COLLATE utf8_bin NOT NULL,
+  `gender` varchar(50) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`userid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=9 ;
 
