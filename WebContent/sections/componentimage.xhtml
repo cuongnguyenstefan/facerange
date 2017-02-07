@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+<title>IGNORED</title>
+</head>
+<body>
+	<ui:composition>
+		<div class="panel panel-default groups">
+			<div class="panel-heading">
+				<h3 class="panel-title">Feature Images</h3>
+			</div>
+			<div class="panel-body">
+				<ui:repeat var="image" value="#{componentBean.componentImages}">
+					<ui:fragment rendered="#{not empty image.image1}">
+						<div class="group-item">
+							<h:graphicImage value="#{image.image1}"></h:graphicImage>
+						</div>
+					</ui:fragment>
+					<ui:fragment rendered="#{not empty image.image2}">
+						<div class="group-item">
+							<h:graphicImage value="#{image.image2}"></h:graphicImage>
+						</div>
+					</ui:fragment>
+					<ui:fragment rendered="#{not empty image.image3}">
+						<div class="group-item">
+							<h:graphicImage value="#{image.image3}"></h:graphicImage>
+						</div>
+					</ui:fragment>
+				</ui:repeat>
+			</div>
+		</div>
+	</ui:composition>
+</body>
+</html>

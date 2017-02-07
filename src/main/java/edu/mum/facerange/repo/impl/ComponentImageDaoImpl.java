@@ -79,8 +79,8 @@ public class ComponentImageDaoImpl implements ComponentImageDao, Serializable {
 			ComponentImage componentImage = new ComponentImage();
 			componentImage.setComponentId(rs.getInt("componentid"));
 			componentImage.setImage1(rs.getString("image1"));
-			componentImage.setImage1(rs.getString("image2"));
-			componentImage.setImage1(rs.getString("image3"));
+			componentImage.setImage2(rs.getString("image2"));
+			componentImage.setImage3(rs.getString("image3"));
 			componentImage.setImageId(rs.getInt("imageid"));
 			componentImages.add(componentImage);
 		}

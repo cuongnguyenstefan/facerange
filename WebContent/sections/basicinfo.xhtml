@@ -16,10 +16,10 @@
 				</div>
 				<div class="panel-body">
 					<ul>
-						<li>From: <h:outputText value="#{basicInfo.from}"></h:outputText></li>
-						<li>Living in: <h:outputText value="#{basicInfo.city}"></h:outputText></li>
-						<li>Working as: <h:outputText value="#{basicInfo.job}"></h:outputText></li>
-						<li>Age: <h:outputText value="#{basicInfo.age}"></h:outputText></li>
+						<li><h:outputText value="From: #{basicInfo.from}" rendered="#{not empty basicInfo.from}"></h:outputText></li>
+						<li><h:outputText value="Living in: #{basicInfo.city}" rendered="#{not empty basicInfo.city}"></h:outputText></li>
+						<li><h:outputText value="Working as: #{basicInfo.job}" rendered="#{not empty basicInfo.job}"></h:outputText></li>
+						<li><h:outputText value="Age: #{basicInfo.age}" rendered="#{not empty basicInfo.age}"></h:outputText></li>
 					</ul>
 				</div>
 			</div>
