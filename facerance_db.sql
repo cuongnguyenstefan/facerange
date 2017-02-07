@@ -157,6 +157,11 @@ CREATE TABLE `facerange`.`basicinfo` (
 --
 -- Dumping data for table `users`
 --
+CREATE TABLE files (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    file blob NOT NULL,
+    PRIMARY KEY (id)
+);
 
 INSERT INTO `users` (`userid`, `fullname`, `email`, `password`, `datecreated`, `dateupdated`, `dob`, `gender`) VALUES
 (8, 'henricharles', '2kkhenricharles@gmail.com', '12345', '2017-02-06 22:58:28', '2017-02-06 22:58:28', NULL, 'mal');
