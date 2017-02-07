@@ -7,10 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+
 import edu.mum.facerange.model.SocialMedia;
 import edu.mum.facerange.repo.ComponentSocialMediaDao;
 import edu.mum.facerange.util.DatabaseUtilities;
 
+@Named("componentSocialMediaDao")
+@ApplicationScoped
 public class ComponentSocialMediaDaoImpl implements ComponentSocialMediaDao {
 	
 	private String SELECT_BY_COMPONENTID = "SELECT * FROM socialmedia WHERE componentid = ?";

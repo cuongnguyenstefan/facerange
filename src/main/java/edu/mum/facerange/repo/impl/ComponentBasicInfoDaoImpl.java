@@ -7,10 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+
 import edu.mum.facerange.model.BasicInfo;
 import edu.mum.facerange.repo.ComponentBasicInfoDao;
 import edu.mum.facerange.util.DatabaseUtilities;
 
+@Named("componentBasicInfoDao")
+@ApplicationScoped
 public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao {
 
 	private String SELECT_BY_COMPONENTID = "SELECT * FROM basicinfo WHERE componentid = ?";

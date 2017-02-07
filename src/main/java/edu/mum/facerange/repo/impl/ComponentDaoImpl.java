@@ -7,11 +7,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+
 import edu.mum.facerange.enumeration.ComponentType;
 import edu.mum.facerange.model.Component;
 import edu.mum.facerange.repo.ComponentDao;
 import edu.mum.facerange.util.DatabaseUtilities;
 
+@Named("componentDao")
+@ApplicationScoped
 public class ComponentDaoImpl implements ComponentDao {
 
 	private String SELECT_BY_USERID = "SELECT * FROM component WHERE userid = ?";

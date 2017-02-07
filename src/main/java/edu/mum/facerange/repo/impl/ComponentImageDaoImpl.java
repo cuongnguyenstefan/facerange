@@ -7,10 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+
 import edu.mum.facerange.model.ComponentImage;
 import edu.mum.facerange.repo.ComponentImageDao;
 import edu.mum.facerange.util.DatabaseUtilities;
 
+@Named("componentImageDao")
+@ApplicationScoped
 public class ComponentImageDaoImpl implements ComponentImageDao {
 	
 	private String SELECT_BY_COMPONENTID = "SELECT * FROM componentimage WHERE componentid = ?";
