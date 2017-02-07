@@ -154,6 +154,7 @@ footer{
 	margin-bottom: 5px;
 }
 
+<<<<<<< HEAD
 @media(min-width: 991px){
   .members p{
 	padding-top: 40px;
@@ -185,3 +186,5 @@ footer{
 	border: none;
 	color: #333;
 }
+=======
+>>>>>>> dbe0abf6ac159cfe088f53724a625896925aa760

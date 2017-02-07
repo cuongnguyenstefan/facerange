@@ -9,6 +9,23 @@ public class User {
 	private String email;
 	private String password;
 	private Date dob;
+	private String picture;
+	private String userName;
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
 
 	public Integer getUserId() {
 		return userId;

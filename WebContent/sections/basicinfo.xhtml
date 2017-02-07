@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+<title>IGNORED</title>
+</head>
+<body>
+	<ui:composition>
+		<ui:repeat var="basicInfo" value="#{componentBean.basicInfos}">
+			<div class="panel panel-default friends">
+				<div class="panel-heading">
+					<h3 class="panel-title">Basic Info</h3>
+				</div>
+				<div class="panel-body">
+					<ul>
+						<li><h:outputText value="From #{basicInfo.from}" rendered="#{not empty basicInfo.from}"></h:outputText></li>
+						<li><h:outputText value="Living in #{basicInfo.city}" rendered="#{not empty basicInfo.city}"></h:outputText></li>
+						<li><h:outputText value="Working as #{basicInfo.job}" rendered="#{not empty basicInfo.job}"></h:outputText></li>
+						<li><h:outputText value="#{basicInfo.age} years old" rendered="#{not empty basicInfo.age}"></h:outputText></li>
+					</ul>
+				</div>
+			</div>
+		</ui:repeat>
+	</ui:composition>
+</body>
+</html>

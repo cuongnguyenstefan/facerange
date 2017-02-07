@@ -1,5 +1,6 @@
 package edu.mum.facerange.repo.impl;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,17 +8,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-
 import edu.mum.facerange.model.ComponentImage;
 import edu.mum.facerange.repo.ComponentImageDao;
 import edu.mum.facerange.util.DatabaseUtilities;
 
-@Named("componentImageDao")
-@ApplicationScoped
-public class ComponentImageDaoImpl implements ComponentImageDao {
+//@Named("componentImageDao")
+//@ApplicationScoped
+public class ComponentImageDaoImpl implements ComponentImageDao, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3064116145219498479L;
+
 	private String SELECT_BY_COMPONENTID = "SELECT * FROM componentimage WHERE componentid = ?";
 	
 	private String INSERT = "INSERT into componentimage(componentid, image1, image2, image3) values (?, ?, ?, ?)";
@@ -76,8 +79,8 @@ public class ComponentImageDaoImpl implements ComponentImageDao {
 			ComponentImage componentImage = new ComponentImage();
 			componentImage.setComponentId(rs.getInt("componentid"));
 			componentImage.setImage1(rs.getString("image1"));
-			componentImage.setImage1(rs.getString("image2"));
-			componentImage.setImage1(rs.getString("image3"));
+			componentImage.setImage2(rs.getString("image2"));
+			componentImage.setImage3(rs.getString("image3"));
 			componentImage.setImageId(rs.getInt("imageid"));
 			componentImages.add(componentImage);
 		}

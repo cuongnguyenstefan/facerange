@@ -74,9 +74,9 @@ CREATE TABLE IF NOT EXISTS `component` (
 CREATE TABLE IF NOT EXISTS `componentimage` (
   `imageid` int(20) NOT NULL AUTO_INCREMENT,
   `componentid` int(20) NOT NULL,
-  `image1` varchar(50) NOT NULL,
-  `image2` varchar(500) NOT NULL,
-  `image3` varchar(500) NOT NULL,
+  `image1` varchar(500),
+  `image2` varchar(500),
+  `image3` varchar(500),
   PRIMARY KEY (`imageid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -120,10 +120,10 @@ CREATE TABLE IF NOT EXISTS `posts` (
 CREATE TABLE IF NOT EXISTS `socialmedia` (
   `socialmediaid` int(20) NOT NULL AUTO_INCREMENT,
   `componentid` int(20) NOT NULL,
-  `facebook` varchar(500) NOT NULL,
-  `instagram` varchar(500) NOT NULL,
-  `twitter` varchar(500) NOT NULL,
-  `youtube` varchar(500) NOT NULL,
+  `facebook` varchar(500),
+  `instagram` varchar(500),
+  `twitter` varchar(500),
+  `youtube` varchar(500),
   PRIMARY KEY (`socialmediaid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -157,6 +157,11 @@ CREATE TABLE `facerange`.`basicinfo` (
 --
 -- Dumping data for table `users`
 --
+CREATE TABLE files (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    file blob NOT NULL,
+    PRIMARY KEY (id)
+);
 
 INSERT INTO `users` (`userid`, `fullname`, `email`, `password`, `datecreated`, `dateupdated`, `dob`, `gender`) VALUES
 (8, 'henricharles', '2kkhenricharles@gmail.com', '12345', '2017-02-06 22:58:28', '2017-02-06 22:58:28', NULL, 'mal');

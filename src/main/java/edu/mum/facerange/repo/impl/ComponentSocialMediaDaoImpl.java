@@ -1,5 +1,6 @@
 package edu.mum.facerange.repo.impl;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,17 +8,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-
 import edu.mum.facerange.model.SocialMedia;
 import edu.mum.facerange.repo.ComponentSocialMediaDao;
 import edu.mum.facerange.util.DatabaseUtilities;
 
-@Named("componentSocialMediaDao")
-@ApplicationScoped
-public class ComponentSocialMediaDaoImpl implements ComponentSocialMediaDao {
+//@Named("componentSocialMediaDao")
+//@ApplicationScoped
+public class ComponentSocialMediaDaoImpl implements ComponentSocialMediaDao, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2219647142868242644L;
+
 	private String SELECT_BY_COMPONENTID = "SELECT * FROM socialmedia WHERE componentid = ?";
 
 	private String INSERT = "INSERT into socialmedia(componentid, facebook, instagram, twitter, youtuble) values (?, ?, ?, ?, ?)";

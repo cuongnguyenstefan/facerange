@@ -1,21 +1,24 @@
 package edu.mum.facerange.backingbean.impl;
 
+import java.io.Serializable;
+
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import edu.mum.facerange.backingbean.AuthenticationBean;
 import edu.mum.facerange.model.User;
 import edu.mum.facerange.service.AuthenticationService;
 
-//@Named("authenticationBean")
-//@SessionScoped
-public class AuthenticationBeanImpl implements AuthenticationBean {
+@Named("authenticationBean")
+@SessionScoped
+public class AuthenticationBeanImpl implements AuthenticationBean, Serializable {
 
-	//@Inject
+	private static final long serialVersionUID = 1L;
+
+	//	@Inject
 	private AuthenticationService authenticationService;
 
 	private User user;
@@ -30,15 +33,15 @@ public class AuthenticationBeanImpl implements AuthenticationBean {
 		return "authentication/login?faces-redirect=true";
 	}
 
-	@Override
-	public String signup() {
-		boolean signedup = authenticationService.signup(user);
-		if (signedup) {
-			return "index";
-		}
-		user.setPassword("");
-		return "authentication/signup?faces-redirect=true";
-	}
+//	@Override
+//	public String signup() {
+//		boolean signedup = authenticationService.(user);
+//		if (signedup) {
+//			return "index";
+//		}
+//		user.setPassword("");
+//		return "authentication/signup?faces-redirect=true";
+//	}
 
 	@Override
 	public void checkLogin(ComponentSystemEvent event) {
@@ -75,6 +78,12 @@ public class AuthenticationBeanImpl implements AuthenticationBean {
 			return "Username already exists";
 		}
 		return "";
+	}
+
+	@Override
+	public String signup() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -4,4 +4,5 @@ public interface UserBean {
 	
 	public String updateComponent();
 	
+	
 }
