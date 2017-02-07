@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,13 +17,8 @@ import edu.mum.facerange.model.SocialMedia;
 import edu.mum.facerange.service.ComponentService;
 
 @Named("componentBean")
-<<<<<<< HEAD
-@RequestScoped
-public class ComponentBeanImpl implements ComponentBean {
-=======
 @SessionScoped
 public class ComponentBeanImpl implements ComponentBean, Serializable {
->>>>>>> dbe0abf6ac159cfe088f53724a625896925aa760
 
 	private static final long serialVersionUID = 1L;
 
