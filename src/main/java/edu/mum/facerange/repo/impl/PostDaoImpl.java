@@ -20,7 +20,7 @@ public class PostDaoImpl implements PostDao {
 			prepareStatement.setInt(1, post.getUserId());
 			prepareStatement.setString(2, post.getPost());
 			prepareStatement.executeUpdate();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error while adding posting: " + e.getMessage());
 		}
 	}
