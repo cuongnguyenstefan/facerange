@@ -154,3 +154,37 @@ footer{
 	margin-bottom: 5px;
 }
 
+<<<<<<< HEAD
+@media(min-width: 991px){
+  .members p{
+	padding-top: 40px;
+	}
+}
+
+.edit-button, .edit-button:link, .edit-button:hover, .edit-button:active {
+	text-decoration: none;
+}
+
+.edit-button:hover {
+	color: #000;
+}
+
+/** Posts **/
+.ui-widget {
+	font-size: 1em;
+}
+
+.ui-datascroller .ui-datascroller-content {
+	padding: 0 !important;
+}
+
+.ui-corner-all {
+	border-radius: 0;
+}
+
+.ui-widget-content {
+	border: none;
+	color: #333;
+}
+=======
+>>>>>>> dbe0abf6ac159cfe088f53724a625896925aa760

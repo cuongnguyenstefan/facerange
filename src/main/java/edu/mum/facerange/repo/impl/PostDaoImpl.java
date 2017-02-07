@@ -2,7 +2,10 @@ package edu.mum.facerange.repo.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.mum.facerange.model.Post;
@@ -27,14 +30,41 @@ public class PostDaoImpl implements PostDao {
 
 	@Override
 	public List<Post> getUserPosts(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Post> results = new ArrayList<>();
+		String sql = "SELECT postid, userid, post FROM posts WHERE userid = ? ORDER BY datecreated DESC";
+	    try {
+	    	Connection con = DatabaseUtilities.getConnection();
+	    	PreparedStatement prepareStatement = con.prepareStatement(sql);
+			prepareStatement.setInt(1, userId);
+			
+	        ResultSet rs = prepareStatement.executeQuery();
+	        
+	        while (rs.next()) {
+	        	Post post = new Post();	        	
+	        	post.setPostId(rs.getInt("postid"));
+	        	post.setUserId(rs.getInt("userid"));
+	        	post.setPost(rs.getString("post"));
+	        	
+	            results.add(post);
+	        }
+	    } catch (SQLException e ) {
+	    	System.out.println("Error while get postings: " + e.getMessage());
+	    } 
+
+		return results;
 	}
 
 	@Override
 	public void deletePost(int postId) {
-		// TODO Auto-generated method stub
-		
+		try {
+			String sql = "delete from posts where postid = ?";
+			Connection con = DatabaseUtilities.getConnection();
+			PreparedStatement prepareStatement = con.prepareStatement(sql);
+			prepareStatement.setInt(1, postId);
+			prepareStatement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Error while deleting posting: " + e.getMessage());
+		}
 	}
 
 	@Override
@@ -51,8 +81,30 @@ public class PostDaoImpl implements PostDao {
 
 	@Override
 	public List<Post> getPosts(int offset, int size, int userId) {
-		// TODO Auto-generated method stub
-		return null;
+	    List<Post> results = new ArrayList<>();
+		String sql = "SELECT postid, userid, post FROM posts WHERE userid = ? ORDER BY datecreated desc LIMIT ? OFFSET ?";
+	    try {
+	    	Connection con = DatabaseUtilities.getConnection();
+	    	PreparedStatement prepareStatement = con.prepareStatement(sql);
+			prepareStatement.setInt(1, userId);
+			prepareStatement.setInt(2, size);
+			prepareStatement.setInt(3, offset);
+			
+	        ResultSet rs = prepareStatement.executeQuery();
+	        
+	        while (rs.next()) {
+	        	Post post = new Post();	        	
+	        	post.setPostId(rs.getInt("postid"));
+	        	post.setUserId(rs.getInt("userid"));
+	        	post.setPost(rs.getString("post"));
+	        	
+	            results.add(post);
+	        }
+	    } catch (SQLException e ) {
+	    	System.out.println("Error while get postings: " + e.getMessage());
+	    } 
+
+		return results;
 	}
 
 }
