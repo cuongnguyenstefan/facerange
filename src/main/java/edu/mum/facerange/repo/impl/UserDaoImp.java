@@ -1,25 +1,30 @@
 package edu.mum.facerange.repo.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+
 
 import edu.mum.facerange.model.User;
 import edu.mum.facerange.repo.UserDao;
 import edu.mum.facerange.util.DatabaseUtilities;
 
 public class UserDaoImp implements UserDao {
+	
+	private static String INSERT_STATEMENT = "Insert into users(fullname,email,gender,password) values(?,?,?,?)";
 
 	@Override
 	public void addUser(User user) {
 		try {
 			Connection con = DatabaseUtilities.getConnection();
-			String querry = "insert into users(fullname,email,gender,password) values('" + user.getFullnane() + "','"
-					+ user.getEmail() + "','" + user.getGender() + "','" + user.getPassword() + "')";
-			Statement st = con.createStatement();
-			st.executeUpdate(querry);
-
+			PreparedStatement prepareStatement = con.prepareStatement(INSERT_STATEMENT);
+			prepareStatement.setString(1, user.getFullnane());
+			prepareStatement.setString(2, user.getEmail());
+			prepareStatement.setString(3, user.getGender());
+			prepareStatement.setString(4, user.getPassword());
+			prepareStatement.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
 			System.out.println("Error while adding user: " + e.getMessage());
 		}
