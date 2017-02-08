@@ -39,6 +39,7 @@ public class ComponentServiceImpl implements ComponentService {
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, Object> getComponents(int userId) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -52,18 +53,33 @@ public class ComponentServiceImpl implements ComponentService {
 			case COMPONENT_IMAGE:
 				List<ComponentImage> byComponentId = componentImageDao.getByComponentId(c.getComponentId());
 				if (byComponentId != null) {
+					Object object = map.get(ComponentType.COMPONENT_IMAGE.toString());
+					if (object != null) {
+						List<ComponentImage> cis = (List<ComponentImage>) object;
+						byComponentId.addAll(cis);
+					}
 					map.put(ComponentType.COMPONENT_IMAGE.toString(), byComponentId);
 				}
 				break;
 			case BASIC_INFO:
 				List<BasicInfo> byComponentId2 = componentBasicInfoDao.getByComponentId(c.getComponentId());
 				if (byComponentId2 != null) {
+					Object object = map.get(ComponentType.BASIC_INFO.toString());
+					if (object != null) {
+						List<BasicInfo> cis = (List<BasicInfo>) object;
+						byComponentId2.addAll(cis);
+					}
 					map.put(ComponentType.BASIC_INFO.toString(), byComponentId2);
 				}
 				break;
 			case SOCIAL_MEDIA:
 				List<SocialMedia> byComponentId3 = componentSocialMediaDao.getByComponentId(c.getComponentId());
 				if (byComponentId3 != null) {
+					Object object = map.get(ComponentType.SOCIAL_MEDIA.toString());
+					if (object != null) {
+						List<SocialMedia> cis = (List<SocialMedia>) object;
+						byComponentId3.addAll(cis);
+					}
 					map.put(ComponentType.SOCIAL_MEDIA.toString(), byComponentId3);
 				}
 				break;
