@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+<title>IGNORED</title>
+</head>
+<body>
+	<ui:composition>
+		<div class="panel panel-default friends">
+			<div class="panel-heading">
+				<h3 class="panel-title">Basic Info</h3>
+			</div>
+			<div class="panel-body">
+				<ul class="list-group">
+					<li>From: <h:inputText value="#{componentBean.basicInfo.from}"></h:inputText></li>
+					<li>Living in: <h:inputText value="#{componentBean.basicInfo.city}"></h:inputText></li>
+					<li>Working as: <h:inputText value="#{componentBean.basicInfo.job}"></h:inputText></li>
+				</ul>
+			</div>
+		</div>
+	</ui:composition>
+</body>
+</html>

@@ -11,5 +11,8 @@ public interface ComponentBasicInfoDao {
 	public boolean add(BasicInfo basicInfo);
 	
 	public boolean removeByComponentId(int id);
+	
+	public boolean removeById(int id);
 
+	public boolean update(BasicInfo basicInfo);
 }

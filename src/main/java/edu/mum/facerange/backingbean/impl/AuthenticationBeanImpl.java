@@ -18,10 +18,12 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 
 	private static final long serialVersionUID = 1L;
 
-	//	@Inject
+	// @Inject
 	private AuthenticationService authenticationService;
 
 	private User user;
+
+	private boolean remember;
 
 	@Override
 	public String login() {
@@ -33,33 +35,39 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 		return "authentication/login?faces-redirect=true";
 	}
 
-//	@Override
-//	public String signup() {
-//		boolean signedup = authenticationService.(user);
-//		if (signedup) {
-//			return "index";
-//		}
-//		user.setPassword("");
-//		return "authentication/signup?faces-redirect=true";
-//	}
+	// @Override
+	// public String signup() {
+	// boolean signedup = authenticationService.(user);
+	// if (signedup) {
+	// return "index";
+	// }
+	// user.setPassword("");
+	// return "authentication/signup?faces-redirect=true";
+	// }
 
 	@Override
 	public void checkLogin(ComponentSystemEvent event) {
-		if (user.getPassword() == null || "".equals(user.getPassword())) {
+		// TODO remove
+		user = new User();
+		user.setUserId(9);
+		user.setUserName("ABC");
+		user.setFullnane("DEF");
+		user.setPassword("abc");
+		if (user == null || user.getPassword() == null || "".equals(user.getPassword())) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			ConfigurableNavigationHandler handler = (ConfigurableNavigationHandler) context.getApplication()
 					.getNavigationHandler();
-			handler.performNavigation("authentication/login");
+			handler.performNavigation("authentication/login?faces-redirect=true");
 		}
 	}
 
 	@Override
 	public void checkLogged(ComponentSystemEvent event) {
-		if (user.getPassword() != null && !"".equals(user.getPassword())) {
+		if (user != null && user.getPassword() != null && !"".equals(user.getPassword())) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			ConfigurableNavigationHandler handler = (ConfigurableNavigationHandler) context.getApplication()
 					.getNavigationHandler();
-			handler.performNavigation("index");
+			handler.performNavigation("index?faces-redirect=true");
 		}
 	}
 
@@ -84,6 +92,14 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 	public String signup() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public boolean isRemember() {
+		return remember;
+	}
+
+	public void setRemember(boolean remember) {
+		this.remember = remember;
 	}
 
 }

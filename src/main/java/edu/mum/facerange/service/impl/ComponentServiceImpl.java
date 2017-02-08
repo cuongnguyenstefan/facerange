@@ -8,6 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import edu.mum.facerange.enumeration.ComponentType;
+import edu.mum.facerange.enumeration.Service;
 import edu.mum.facerange.model.BasicInfo;
 import edu.mum.facerange.model.Component;
 import edu.mum.facerange.model.ComponentImage;
@@ -20,24 +21,28 @@ import edu.mum.facerange.service.ComponentService;
 
 @ApplicationScoped
 public class ComponentServiceImpl implements ComponentService {
-	
-	@Inject
-	private ComponentDao componentDao/* = new  ComponentDaoImpl()*/;
-	
-	@Inject
-	private ComponentBasicInfoDao componentBasicInfoDao/* = new ComponentBasicInfoDaoImpl()*/;
-	
-	@Inject
-	private ComponentImageDao componentImageDao/* = new ComponentImageDaoImpl()*/;
-	
-	@Inject
-	private ComponentSocialMediaDao componentSocialMediaDao/* = new ComponentSocialMediaDaoImpl()*/;
 
-	@Override
-	public boolean updateComponents(List<Component> components) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	@Inject
+	private ComponentDao componentDao/* = new ComponentDaoImpl() */;
+
+	@Inject
+	private ComponentBasicInfoDao componentBasicInfoDao/*
+														 * = new
+														 * ComponentBasicInfoDaoImpl
+														 * ()
+														 */;
+
+	@Inject
+	private ComponentImageDao componentImageDao/*
+												 * = new ComponentImageDaoImpl()
+												 */;
+
+	@Inject
+	private ComponentSocialMediaDao componentSocialMediaDao/*
+															 * = new
+															 * ComponentSocialMediaDaoImpl
+															 * ()
+															 */;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -64,22 +69,22 @@ public class ComponentServiceImpl implements ComponentService {
 			case BASIC_INFO:
 				List<BasicInfo> byComponentId2 = componentBasicInfoDao.getByComponentId(c.getComponentId());
 				if (byComponentId2 != null) {
-					Object object = map.get(ComponentType.BASIC_INFO.toString());
-					if (object != null) {
-						List<BasicInfo> cis = (List<BasicInfo>) object;
-						byComponentId2.addAll(cis);
-					}
+//					Object object = map.get(ComponentType.BASIC_INFO.toString());
+//					if (object != null) {
+//						List<BasicInfo> cis = (List<BasicInfo>) object;
+//						byComponentId2.addAll(cis);
+//					}
 					map.put(ComponentType.BASIC_INFO.toString(), byComponentId2);
 				}
 				break;
 			case SOCIAL_MEDIA:
 				List<SocialMedia> byComponentId3 = componentSocialMediaDao.getByComponentId(c.getComponentId());
 				if (byComponentId3 != null) {
-					Object object = map.get(ComponentType.SOCIAL_MEDIA.toString());
-					if (object != null) {
-						List<SocialMedia> cis = (List<SocialMedia>) object;
-						byComponentId3.addAll(cis);
-					}
+//					Object object = map.get(ComponentType.SOCIAL_MEDIA.toString());
+//					if (object != null) {
+//						List<SocialMedia> cis = (List<SocialMedia>) object;
+//						byComponentId3.addAll(cis);
+//					}
 					map.put(ComponentType.SOCIAL_MEDIA.toString(), byComponentId3);
 				}
 				break;
@@ -89,7 +94,64 @@ public class ComponentServiceImpl implements ComponentService {
 		}
 		return map;
 	}
-	
-	
+
+	@Override
+	public boolean saveComponent(Component component, Service service) {
+		if (Service.CREATE.equals(service)) {
+			componentDao.addComponent(component);
+			return true;
+		} else if (Service.DELETE.equals(service)) {
+			componentDao.removeComponent(component.getComponentId());
+			return true;
+		} else if (Service.UPDATE.equals(service)) {
+			// not supported
+		}
+		return false;
+	}
+
+	@Override
+	public boolean saveBasicInfo(BasicInfo basicInfo, Service service) {
+		if (Service.CREATE.equals(service)) {
+			componentBasicInfoDao.add(basicInfo);
+			return true;
+		} else if (Service.DELETE.equals(service)) {
+			componentBasicInfoDao.removeById(basicInfo.getBasicinfoId());
+			return true;
+		} else if (Service.UPDATE.equals(service)) {
+			componentBasicInfoDao.update(basicInfo);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean saveImageComponent(ComponentImage componentImage, Service service) {
+		if (Service.CREATE.equals(service)) {
+			componentImageDao.add(componentImage);
+			return true;
+		} else if (Service.DELETE.equals(service)) {
+			componentImageDao.removeById(componentImage.getImageId());
+			return true;
+		} else if (Service.UPDATE.equals(service)) {
+			componentImageDao.update(componentImage);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean saveSocialMedia(SocialMedia socialMedia, Service service) {
+		if (Service.CREATE.equals(service)) {
+			componentSocialMediaDao.add(socialMedia);
+			return true;
+		} else if (Service.DELETE.equals(service)) {
+			componentSocialMediaDao.removeById(socialMedia.getSocialmediaId());
+			return true;
+		} else if (Service.UPDATE.equals(service)) {
+			componentSocialMediaDao.update(socialMedia);
+			return true;
+		}
+		return false;
+	}
 
 }

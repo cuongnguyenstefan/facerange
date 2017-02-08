@@ -7,7 +7,6 @@ public class BasicInfo {
 	String city;
 	int componentId;
 	String job;
-	Integer age;
 	public int getBasicinfoId() {
 		return basicinfoId;
 	}
@@ -38,12 +37,9 @@ public class BasicInfo {
 	public void setJob(String job) {
 		this.job = job;
 	}
-	public Integer getAge() {
-		return age;
-	}
-	public void setAge(Integer age) {
-		this.age = age;
-		if (age == 0) this.age = null;
+	
+	public boolean empty() {
+		return (from == null || from == "") && (city == null || city == "") && (job == null || job == "");
 	}
 	
 }

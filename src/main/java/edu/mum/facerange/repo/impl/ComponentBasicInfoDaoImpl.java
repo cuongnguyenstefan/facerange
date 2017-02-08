@@ -23,9 +23,13 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao, Seriali
 
 	private String SELECT_BY_COMPONENTID = "SELECT * FROM basicinfo WHERE componentid = ?";
 
-	private String INSERT = "INSERT into basicinfo(componentid, from, city, job, age) values (?, ?, ?, ?, ?)";
+	private String INSERT = "INSERT into basicinfo(componentid, from, city, job) values (?, ?, ?, ?)";
+	
+	private String UPDATE = "UPDATE basicinfo SET basicinfo.from = ?, city = ?, job = ? WHERE basicinfoid = ?";
 
-	private String DELETE = "DELETE FROM basicinfo WHERE componentid = ?";
+	private String DELETE_BY_COMPONENTID = "DELETE FROM basicinfo WHERE componentid = ?";
+	
+	private String DELETE_BY_ID = "DELETE FROM basicinfo WHERE basicinfoid = ?";
 
 	public List<BasicInfo> getByComponentId(int id) {
 		try {
@@ -51,7 +55,6 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao, Seriali
 			prepareStatement.setString(2, basicInfo.getFrom());
 			prepareStatement.setString(3, basicInfo.getCity());
 			prepareStatement.setString(4, basicInfo.getJob());
-			prepareStatement.setInt(5, basicInfo.getAge());
 			prepareStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Error while adding component basic info: " + e.getMessage());
@@ -63,7 +66,7 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao, Seriali
 	public boolean removeByComponentId(int id) {
 		try {
 			Connection con = DatabaseUtilities.getConnection();
-			PreparedStatement prepareStatement = con.prepareStatement(DELETE);
+			PreparedStatement prepareStatement = con.prepareStatement(DELETE_BY_COMPONENTID);
 			prepareStatement.setInt(1, id);
 			prepareStatement.executeUpdate();
 		} catch (SQLException e) {
@@ -78,7 +81,6 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao, Seriali
 		
 		while (rs.next()) {
 			BasicInfo basicInfo = new BasicInfo();
-			basicInfo.setAge(rs.getInt("age"));
 			basicInfo.setBasicinfoId(rs.getInt("basicinfoid"));
 			basicInfo.setCity(rs.getString("city"));
 			basicInfo.setComponentId(rs.getInt("componentid"));
@@ -89,6 +91,37 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao, Seriali
 		}
 		
 		return basicInfos;
+	}
+
+	@Override
+	public boolean removeById(int id) {
+		try {
+			Connection con = DatabaseUtilities.getConnection();
+			PreparedStatement prepareStatement = con.prepareStatement(DELETE_BY_ID);
+			prepareStatement.setInt(1, id);
+			prepareStatement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Error while removing component basic info - " + id + " " + e.getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean update(BasicInfo basicInfo) {
+		try {
+			Connection con = DatabaseUtilities.getConnection();
+			PreparedStatement prepareStatement = con.prepareStatement(UPDATE);
+			prepareStatement.setString(1, basicInfo.getFrom());
+			prepareStatement.setString(2, basicInfo.getCity());
+			prepareStatement.setString(3, basicInfo.getJob());
+			prepareStatement.setInt(4, basicInfo.getBasicinfoId());
+			prepareStatement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Error while updating component basic info: " + e.getMessage());
+			return false;
+		}
+		return true;
 	}
 
 }
