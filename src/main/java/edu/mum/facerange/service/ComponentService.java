@@ -1,9 +1,12 @@
 package edu.mum.facerange.service;
 
-import java.util.List;
 import java.util.Map;
 
+import edu.mum.facerange.enumeration.Service;
+import edu.mum.facerange.model.BasicInfo;
 import edu.mum.facerange.model.Component;
+import edu.mum.facerange.model.ComponentImage;
+import edu.mum.facerange.model.SocialMedia;
 
 public interface ComponentService {
 
@@ -11,7 +14,12 @@ public interface ComponentService {
 	// and edit page
 	public Map<String, Object> getComponents(int userId);
 	
-	// for user to update their components.
-	public boolean updateComponents(List<Component> components);
+	public boolean saveComponent(Component component, Service service);
+	
+	public boolean saveBasicInfo(BasicInfo basicInfo, Service service);
+	
+	public boolean saveImageComponent(ComponentImage componentImage, Service service);
+	
+	public boolean saveSocialMedia(SocialMedia socialMedia, Service service);
 
 }

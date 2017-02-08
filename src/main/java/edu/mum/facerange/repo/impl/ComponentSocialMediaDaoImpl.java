@@ -25,7 +25,11 @@ public class ComponentSocialMediaDaoImpl implements ComponentSocialMediaDao, Ser
 
 	private String INSERT = "INSERT into socialmedia(componentid, facebook, instagram, twitter, youtuble) values (?, ?, ?, ?, ?)";
 
-	private String DELETE = "DELETE FROM socialmedia WHERE componentid = ?";
+	private String DELETE_BY_COMPONENTID = "DELETE FROM socialmedia WHERE componentid = ?";
+	
+	private String UPDATE = "UPDATE socialmedia SET facebook = ?, instagram = ?, twitter = ?, youtuble = ? WHERE socialmediaid = ?";
+
+	private String DELETE_BY_ID = "DELETE FROM socialmedia WHERE socialmediaid = ?";
 
 	private List<SocialMedia> listComponentSocialMediaFromResultSet(ResultSet rs) throws SQLException {
 		List<SocialMedia> socialMedias = new ArrayList<SocialMedia>();
@@ -83,7 +87,39 @@ public class ComponentSocialMediaDaoImpl implements ComponentSocialMediaDao, Ser
 	public boolean removeByComponentId(int id) {
 		try {
 			Connection con = DatabaseUtilities.getConnection();
-			PreparedStatement prepareStatement = con.prepareStatement(DELETE);
+			PreparedStatement prepareStatement = con.prepareStatement(DELETE_BY_COMPONENTID);
+			prepareStatement.setInt(1, id);
+			prepareStatement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Error while removing component social media - " + id + " " + e.getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean update(SocialMedia socialMedia) {
+		try {
+			Connection con = DatabaseUtilities.getConnection();
+			PreparedStatement prepareStatement = con.prepareStatement(UPDATE);
+			prepareStatement.setString(1, socialMedia.getFacebookLink());
+			prepareStatement.setString(2, socialMedia.getInstagramLink());
+			prepareStatement.setString(3, socialMedia.getTwitterLink());
+			prepareStatement.setString(4, socialMedia.getYoutubeLink());
+			prepareStatement.setInt(5, socialMedia.getSocialmediaId());
+			prepareStatement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Error while updating component social media: " + e.getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean removeById(int id) {
+		try {
+			Connection con = DatabaseUtilities.getConnection();
+			PreparedStatement prepareStatement = con.prepareStatement(DELETE_BY_ID);
 			prepareStatement.setInt(1, id);
 			prepareStatement.executeUpdate();
 		} catch (SQLException e) {

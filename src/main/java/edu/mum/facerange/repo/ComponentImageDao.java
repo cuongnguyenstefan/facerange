@@ -11,4 +11,9 @@ public interface ComponentImageDao {
 	public boolean add(ComponentImage componentImage);
 	
 	public boolean removeByComponentId(int id);
+	
+	public boolean removeById(int id);
+	
+	public boolean update(ComponentImage componentImage);
+	
 }

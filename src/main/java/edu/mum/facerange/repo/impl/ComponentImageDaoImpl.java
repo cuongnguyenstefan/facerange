@@ -25,7 +25,11 @@ public class ComponentImageDaoImpl implements ComponentImageDao, Serializable {
 	
 	private String INSERT = "INSERT into componentimage(componentid, image1, image2, image3) values (?, ?, ?, ?)";
 	
-	private String DELETE = "DELETE FROM componentimage WHERE componentid = ?";
+	private String DELETE_BY_COMPONENTID = "DELETE FROM componentimage WHERE componentid = ?";
+	
+	private String UPDATE = "UPDATE componentimage SET image1 = ? image2 = ? image3 = ? WHERE imageid = ?";
+	
+	private String DELETE_BY_ID = "DELETE FROM componentimage WHERE imageid = ?";
 
 	public List<ComponentImage> getByComponentId(int id) {
 		try {
@@ -62,7 +66,7 @@ public class ComponentImageDaoImpl implements ComponentImageDao, Serializable {
 	public boolean removeByComponentId(int id) {
 		try {
 			Connection con = DatabaseUtilities.getConnection();
-			PreparedStatement prepareStatement = con.prepareStatement(DELETE);
+			PreparedStatement prepareStatement = con.prepareStatement(DELETE_BY_COMPONENTID);
 			prepareStatement.setInt(1, id);
 			prepareStatement.executeUpdate();
 		} catch (SQLException e) {
@@ -86,5 +90,36 @@ public class ComponentImageDaoImpl implements ComponentImageDao, Serializable {
 		}
 		
 		return componentImages;
+	}
+
+	@Override
+	public boolean removeById(int id) {
+		try {
+			Connection con = DatabaseUtilities.getConnection();
+			PreparedStatement prepareStatement = con.prepareStatement(DELETE_BY_ID);
+			prepareStatement.setInt(1, id);
+			prepareStatement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Error while removing component image - " + id + " " + e.getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean update(ComponentImage componentImage) {
+		try {
+			Connection con = DatabaseUtilities.getConnection();
+			PreparedStatement prepareStatement = con.prepareStatement(UPDATE);
+			prepareStatement.setString(1, componentImage.getImage1());
+			prepareStatement.setString(2, componentImage.getImage2());
+			prepareStatement.setString(3, componentImage.getImage3());
+			prepareStatement.setInt(4, componentImage.getImageId());
+			prepareStatement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Error while updating component image: " + e.getMessage());
+			return false;
+		}
+		return true;
 	}
 }

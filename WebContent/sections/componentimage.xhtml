@@ -16,20 +16,24 @@
 			<ui:repeat var="image" value="#{componentBean.componentImages}">
 				<div class="panel-body">
 					<ui:fragment rendered="#{not empty image.image1}">
-						<span class="group-item"> 
-							<h:outputLink value="../facerange/image?id=#{image.image1}"><h:graphicImage value="/image?id=#{image.image1}"></h:graphicImage></h:outputLink>
+						<span class="group-item"> <h:outputLink
+								value="../facerange/image?id=#{image.image1}">
+								<h:graphicImage value="/image?id=#{image.image1}"></h:graphicImage>
+							</h:outputLink>
 						</span>
 					</ui:fragment>
 					<ui:fragment rendered="#{not empty image.image2}">
-						<span class="group-item"> 
-							<h:outputLink value="../facerange/image?id=#{image.image2}"><h:graphicImage
-								value="/image?id=#{image.image2}"></h:graphicImage></h:outputLink>
+						<span class="group-item"> <h:outputLink
+								value="../facerange/image?id=#{image.image2}">
+								<h:graphicImage value="/image?id=#{image.image2}"></h:graphicImage>
+							</h:outputLink>
 						</span>
 					</ui:fragment>
 					<ui:fragment rendered="#{not empty image.image3}">
-						<span class="group-item"> 
-							<h:outputLink value="../facerange/image?id=#{image.image3}"><h:graphicImage
-								value="/image?id=#{image.image3}"></h:graphicImage></h:outputLink>
+						<span class="group-item"> <h:outputLink
+								value="../facerange/image?id=#{image.image3}">
+								<h:graphicImage value="/image?id=#{image.image3}"></h:graphicImage>
+							</h:outputLink>
 						</span>
 					</ui:fragment>
 				</div>

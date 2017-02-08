@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+	<f:event type="preRenderView"
+		listener="#{authenticationBean.checkLogin}"></f:event>
+	<h:head>
+		<title><ui:insert name="title">#{authenticationBean.user.userName}'s Facerange</ui:insert></title>
+
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+			integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+			crossorigin="anonymous" />
+
+		<h:outputStylesheet library="css" name="styles.css" />
+	</h:head>
+
+	<body>
+		<ui:insert name="header">
+			<ui:include src="/sections/header.xhtml" />
+		</ui:insert>
+
+		<div class="container">
+			<h:form>
+				<h:commandButton styleClass="btn-success" action="#{componentBean.editComponent}"
+					value="Save"></h:commandButton>
+				<div class="row">
+					<div class="col-md-8">
+						<ui:insert name="edituser">
+							<ui:include src="/sections/edituser.xhtml" />
+						</ui:insert>
+					</div>
+					<div class="col-md-4">
+						<ui:insert name="basicinfo">
+							<ui:include src="/sections/editbasicinfo.xhtml" />
+						</ui:insert>
+
+						<ui:insert name="componentimage">
+							<ui:include src="/sections/editcomponentimage.xhtml" />
+						</ui:insert>
+
+						<ui:insert name="socialmedia">
+							<ui:include src="/sections/editsocialmedia.xhtml" />
+						</ui:insert>
+					</div>
+				</div>
+			</h:form>
+		</div>
+		<footer>
+			<div class="container">
+				<p>FaceRange Copyright &#169;, 2017</p>
+			</div>
+		</footer>
+
+		<!-- Bootstrap core JavaScript
+    ================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+			integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+			crossorigin="anonymous"></script>
+
+		<script src="js/bootstrap.js"></script>
+		<!-- Latest compiled and minified JavaScript -->
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+			integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+			crossorigin="anonymous"></script>
+		<h:outputScript library="js" name="comments.js" />
+	</body>
+</f:view>
+</html>
