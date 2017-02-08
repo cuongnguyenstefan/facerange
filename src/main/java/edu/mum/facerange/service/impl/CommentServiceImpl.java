@@ -31,4 +31,9 @@ public class CommentServiceImpl implements CommentService {
 		return commentRepo.getPostComments(postId);
 	}
 
+	@Override
+	public int count(int postId) {
+		return commentRepo.count(postId);
+	}
+
 }

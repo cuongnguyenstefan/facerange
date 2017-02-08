@@ -20,4 +20,6 @@ public interface CommentDao {
 	public List<Comment> getLastComments(int postId, int lastCommentId);
 
 	public List<Comment> getComments(int offset, int size, int userId);
+	
+	public int count(int postId);
 }

@@ -10,6 +10,7 @@ import javax.faces.event.ActionListener;
 import javax.inject.Inject;
 
 import edu.mum.facerange.model.Comment;
+import edu.mum.facerange.model.User;
 import edu.mum.facerange.service.CommentService;
 import edu.mum.facerange.service.impl.CommentServiceImpl;
 
@@ -30,7 +31,9 @@ public class CommentActionListener implements ActionListener {
 		}
 
 		Comment objComment = new Comment();
-		objComment.setUserId(9);
+		
+		//Get Logged User
+		objComment.setUserId(getLogUser().getUserId());
 		objComment.setPostId(postid);
 		objComment.setComment(comment);
 
@@ -39,4 +42,10 @@ public class CommentActionListener implements ActionListener {
 		commentInput.resetValue();
 	}
 
+	public User getLogUser() {
+		User user = new User();
+		user.setUserId(9);
+		user.setFullnane("Tan Luong");
+		return user;
+	}
 }

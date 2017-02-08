@@ -12,9 +12,16 @@
 <title>IGNORED</title>
 </head>
 <body>
-	<ui:composition>		
+	<ui:composition>
 		
-		<div class="panel panel-default">
+		
+		<f:metadata>
+		    <f:event type="preRenderView" listener="#{postBean.onload}"/>
+		</f:metadata>
+
+
+		<h:panelGroup rendered="#{postBean.owner}" layout="block"
+			styleClass="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">Wall</h3>
 			</div>
@@ -31,27 +38,29 @@
 							<f:ajax execute="@form" render="status posts"></f:ajax>
 						</h:commandButton>
 					</div>
+					
 				</h:form>
 			</div>
-		</div>
-
+		</h:panelGroup>
 		<p:dataScroller id="posts" value="#{postBean.posts}" var="post"
 			chunkSize="5">
 			<div class="panel panel-default post">
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-sm-2">
-							<h:outputLink value="profile.html" class="post-avatar thumbnail">
+							<h:outputLink value="#" class="post-avatar thumbnail">
 								<h:graphicImage value="#{resource['images:user.png']}"></h:graphicImage>
 								<div class="text-center">#{postBean.user.fullnane}</div>
 							</h:outputLink>
 							<div class="likes text-center">
-								<h:form>
+								<h:form rendered="#{postBean.owner}">
 									<h:commandLink title="Edit post" styleClass="edit-button">
 										<span class="glyphicon glyphicon-pencil"></span>
 									</h:commandLink>
-									<h:commandLink title="Remove post" onclick="return confirm('Are you sure you want to delete this post?');"
-											action="#{postBean.deletePost(post.postId)}" styleClass="edit-button">
+									<h:commandLink title="Remove post"
+										onclick="return confirm('Are you sure you want to delete this post?');"
+										action="#{postBean.deletePost(post.postId)}"
+										styleClass="edit-button">
 										<span class="glyphicon glyphicon-remove"></span>
 										<f:ajax render="posts"></f:ajax>
 									</h:commandLink>
@@ -67,16 +76,17 @@
 								<div class="pointer-border"></div>
 							</div>
 							<p class="post-actions">
-								<h:outputLink value="#">Comment</h:outputLink>
+								<h:outputText id="countcomments"
+									value="#{postBean.countComments(post.postId)}" />
 								-
 								<h:outputLink value="#">Like</h:outputLink>
 							</p>
-							<util:comments postId="#{post.postId}" 	
-									controller="#{commentBean}"	
-									comments="#{postBean.getComments(post.postId)}"
-									deleteComment="deleteComment">
-								<f:actionListener type="edu.mum.facerange.backingbean.impl.CommentActionListener" for="commentButton"/>		
-							</util:comments>						
+							<util:comments postId="#{post.postId}"
+								controller="#{commentBean}" owner="#{postBean.owner}"
+								comments="#{postBean.getComments(post.postId)}"
+								deleteComment="deleteComment" 
+								addComment="addComment">
+							</util:comments>
 						</div>
 					</div>
 				</div>

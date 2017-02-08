@@ -99,4 +99,27 @@ public class CommentDaoImpl implements CommentDao {
 		return null;
 	}
 
+	@Override
+	public int count(int postId) {
+		int result = 0;
+		String sql = "SELECT count(*) as count FROM comments WHERE postid = ?";
+		try {
+			Connection con = DatabaseUtilities.getConnection();
+	    	PreparedStatement prepareStatement = con.prepareStatement(sql);
+			prepareStatement.setInt(1, postId);
+			
+	        ResultSet rs = prepareStatement.executeQuery();
+	        
+	        if (rs.next()) {        	
+	        	result = rs.getInt(1);
+	        }
+	        
+	        con.close();
+	    } catch (SQLException e ) {
+	    	System.out.println("Error while counting comments: " + e.getMessage());
+	    }
+		
+		return result;
+	}
+
 }
