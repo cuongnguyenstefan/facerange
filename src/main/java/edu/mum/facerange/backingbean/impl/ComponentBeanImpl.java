@@ -18,13 +18,8 @@ import edu.mum.facerange.model.SocialMedia;
 import edu.mum.facerange.service.ComponentService;
 
 @Named("componentBean")
-<<<<<<< HEAD
-@RequestScoped
-public class ComponentBeanImpl implements ComponentBean {
-=======
 @SessionScoped
 public class ComponentBeanImpl implements ComponentBean, Serializable {
->>>>>>> dbe0abf6ac159cfe088f53724a625896925aa760
 
 	private static final long serialVersionUID = 1L;
 

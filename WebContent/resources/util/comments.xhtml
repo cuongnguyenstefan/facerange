@@ -6,14 +6,16 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:composite="http://java.sun.com/jsf/composite">
 
-<composite:interface>	
+<composite:interface>
 	<composite:attribute name="postId" />
 	<composite:attribute name="comment" />
 	<composite:attribute name="comments" />
-	<composite:attribute name="commentAction"
-		method-signature="java.lang.String doAction()" />
+	<composite:attribute name="controller" required="true" />
+	<composite:attribute name="deleteComment" type="java.lang.String"
+		required="true" />
 
 	<composite:actionSource name="commentButton"
 		targets="commentform:commentButton" />
@@ -21,35 +23,52 @@
 </composite:interface>
 
 <composite:implementation>
-
+	<h:form id="commentform" styleClass="form-inline">
 	<div class="comment-form">
-		<h:form id="commentform" styleClass="form-inline">
+		
 			<div class="form-group">
-				<h:inputText id="comment" value="#{cc.attrs.comment}"
-					styleClass="form-control" a:placeholder="enter comment" />
+				<h:inputText id="comment" styleClass="form-control"
+					a:placeholder="enter comment" />
 			</div>
-			<h:inputHidden id="postid" value="#{cc.attrs.postId}" ></h:inputHidden>
+			<h:inputHidden id="postid" value="#{cc.attrs.postId}"></h:inputHidden>
 			<h:commandButton id="commentButton" value="Add"
-				styleClass="btn btn-default" action="#{cc.attrs.commentAction}">
+				styleClass="btn btn-default">	
+				<f:ajax render="comment comments" execute="@form" />						
 			</h:commandButton>
-		</h:form>
+		
 	</div>
 	<div class="clearfix"></div>
 
-	<div class="comments">
-
-		<ui:repeat id="comments" value="#{cc.attrs.comments}" var="comment">
+	
+	<h:panelGroup id="comments" styleClass="comments" layout="block">
+		<ui:repeat value="#{cc.attrs.comments}" var="comment">
 			<div class="comment">
 				<h:outputLink value="#" class="comment-avatar pull-left">
 					<h:graphicImage value="#{resource['images:user.png']}"></h:graphicImage>
 				</h:outputLink>
+
+				<div class="pull-right">
+					<h:form>
+
+						<h:commandLink title="Delete comment"
+							onclick="return confirm('Are you sure you want to delete this comment?');"
+							styleClass="comment-delete-button"
+							action="#{cc.attrs.deleteAction}">
+							<span class="glyphicon glyphicon-remove"></span>
+							<f:ajax onevent="onDeleteCommentEvent"
+								listener="#{cc.attrs.controller[cc.attrs.deleteComment](comment.commentId)}"
+							/>
+						</h:commandLink>
+					</h:form>
+				</div>
+
 				<div class="comment-text">
 					<p>#{comment.comment}</p>
 				</div>
 			</div>
 			<div class="clearfix"></div>
 		</ui:repeat>
-	</div>
-
+	</h:panelGroup>
+</h:form>
 </composite:implementation>
 </html>

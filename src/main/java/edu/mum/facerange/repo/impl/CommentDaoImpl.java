@@ -14,7 +14,6 @@ import edu.mum.facerange.model.Post;
 import edu.mum.facerange.repo.CommentDao;
 import edu.mum.facerange.util.DatabaseUtilities;
 
-@ApplicationScoped
 public class CommentDaoImpl implements CommentDao {
 
 	@Override
@@ -27,6 +26,7 @@ public class CommentDaoImpl implements CommentDao {
 			prepareStatement.setInt(2, coment.getPostId());
 			prepareStatement.setString(3, coment.getComment());
 			prepareStatement.executeUpdate();
+			con.close();
 		} catch (SQLException e) {
 			System.out.println("Error while adding comment: " + e.getMessage());
 		}
@@ -36,8 +36,8 @@ public class CommentDaoImpl implements CommentDao {
 	public List<Comment> getPostComments(int postId) {
 		List<Comment> results = new ArrayList<>();
 		String sql = "SELECT commentid, postid, userid, comment FROM comments WHERE postid = ?";
-	    try {
-	    	Connection con = DatabaseUtilities.getConnection();
+		try {
+			Connection con = DatabaseUtilities.getConnection();
 	    	PreparedStatement prepareStatement = con.prepareStatement(sql);
 			prepareStatement.setInt(1, postId);
 			
@@ -45,17 +45,19 @@ public class CommentDaoImpl implements CommentDao {
 	        
 	        while (rs.next()) {
 	        	Comment comment = new Comment();
-	        	comment.setCommentId(rs.getInt("commendid"));
+	        	comment.setCommentId(rs.getInt("commentid"));
 	        	comment.setPostId(rs.getInt("postid"));
 	        	comment.setUserId(rs.getInt("userid"));
 	        	comment.setComment(rs.getString("comment"));
 	        	
 	            results.add(comment);
 	        }
+	        
+	        con.close();
 	    } catch (SQLException e ) {
 	    	System.out.println("Error while get comments: " + e.getMessage());
-	    } 
-
+	    }
+		
 		return results;
 	}
 
@@ -67,6 +69,7 @@ public class CommentDaoImpl implements CommentDao {
 			PreparedStatement prepareStatement = con.prepareStatement(sql);
 			prepareStatement.setInt(1, commentId);
 			prepareStatement.executeUpdate();
+			con.close();
 		} catch (SQLException e) {
 			System.out.println("Error while deleting comment: " + e.getMessage());
 		}

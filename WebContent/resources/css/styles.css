@@ -154,7 +154,6 @@ footer{
 	margin-bottom: 5px;
 }
 
-<<<<<<< HEAD
 @media(min-width: 991px){
   .members p{
 	padding-top: 40px;
@@ -167,6 +166,19 @@ footer{
 
 .edit-button:hover {
 	color: #000;
+}
+
+.comment-delete-button
+.comment-delete-button, .comment-delete-button:link, .comment-delete-button:hover, 
+.comment-delete-button:active {
+	text-decoration: none;
+	font-size: 0.8em;
+	color: #000;
+	opacity: 0.5;
+}
+
+.comment-delete-button:hover {
+	opacity: 1.0;
 }
 
 /** Posts **/
@@ -186,5 +198,4 @@ footer{
 	border: none;
 	color: #333;
 }
-=======
->>>>>>> dbe0abf6ac159cfe088f53724a625896925aa760
+

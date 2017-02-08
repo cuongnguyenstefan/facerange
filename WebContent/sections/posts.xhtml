@@ -12,7 +12,8 @@
 <title>IGNORED</title>
 </head>
 <body>
-	<ui:composition>
+	<ui:composition>		
+		
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">Wall</h3>
@@ -35,7 +36,7 @@
 		</div>
 
 		<p:dataScroller id="posts" value="#{postBean.posts}" var="post"
-			chunkSize="3">
+			chunkSize="5">
 			<div class="panel panel-default post">
 				<div class="panel-body">
 					<div class="row">
@@ -70,8 +71,10 @@
 								-
 								<h:outputLink value="#">Like</h:outputLink>
 							</p>
-							<util:comments postId="#{post.postId}" 									
-									comments="#{commentBean.getComments(post.postId)}">
+							<util:comments postId="#{post.postId}" 	
+									controller="#{commentBean}"	
+									comments="#{postBean.getComments(post.postId)}"
+									deleteComment="deleteComment">
 								<f:actionListener type="edu.mum.facerange.backingbean.impl.CommentActionListener" for="commentButton"/>		
 							</util:comments>						
 						</div>

@@ -10,12 +10,14 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import edu.mum.facerange.model.Comment;
 import edu.mum.facerange.model.Post;
 import edu.mum.facerange.model.User;
+import edu.mum.facerange.service.CommentService;
 import edu.mum.facerange.service.PostService;
 
 @Named("postBean")
-@SessionScoped
+@RequestScoped
 public class PostBeanImpl implements Serializable {
 	
 	/**
@@ -28,6 +30,8 @@ public class PostBeanImpl implements Serializable {
 	@Inject
 	PostService postService;
 	
+	@Inject
+	CommentService commentService;
 	//UserBean user = (UserBean) request.getSession().getAttribute("user");	
 	
 	private String status;
@@ -67,7 +71,16 @@ public class PostBeanImpl implements Serializable {
 		return null;
 	}
 	
+	public String deleteComment() {
+		commentService.deleteComment(10);
+		return null;
+	}
+	
 	public List<Post> getPosts() {
 		return postService.getUserPosts(userId);
+	}
+	
+	public List<Comment> getComments(int postId) {
+		return commentService.getPostComments(postId);
 	}
 }

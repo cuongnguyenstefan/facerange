@@ -7,13 +7,14 @@ import javax.inject.Inject;
 
 import edu.mum.facerange.model.Comment;
 import edu.mum.facerange.repo.CommentDao;
+import edu.mum.facerange.repo.impl.CommentDaoImpl;
 import edu.mum.facerange.service.CommentService;
 
 @ApplicationScoped
 public class CommentServiceImpl implements CommentService {
 
-	@Inject
-	CommentDao commentRepo;
+	//@Inject
+	CommentDao commentRepo = new CommentDaoImpl();
 	
 	@Override
 	public void addComment(Comment comment) {

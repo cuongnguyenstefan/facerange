@@ -23,6 +23,7 @@ public class PostDaoImpl implements PostDao {
 			prepareStatement.setInt(1, post.getUserId());
 			prepareStatement.setString(2, post.getPost());
 			prepareStatement.executeUpdate();
+			con.close();
 		} catch (SQLException e) {
 			System.out.println("Error while adding posting: " + e.getMessage());
 		}
@@ -47,6 +48,8 @@ public class PostDaoImpl implements PostDao {
 	        	
 	            results.add(post);
 	        }
+	        con.close();
+	        
 	    } catch (SQLException e ) {
 	    	System.out.println("Error while get postings: " + e.getMessage());
 	    } 
@@ -62,6 +65,7 @@ public class PostDaoImpl implements PostDao {
 			PreparedStatement prepareStatement = con.prepareStatement(sql);
 			prepareStatement.setInt(1, postId);
 			prepareStatement.executeUpdate();
+			con.close();
 		} catch (SQLException e) {
 			System.out.println("Error while deleting posting: " + e.getMessage());
 		}
@@ -100,6 +104,8 @@ public class PostDaoImpl implements PostDao {
 	        	
 	            results.add(post);
 	        }
+	        
+	        con.close();
 	    } catch (SQLException e ) {
 	    	System.out.println("Error while get postings: " + e.getMessage());
 	    } 
