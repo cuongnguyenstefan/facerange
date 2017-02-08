@@ -22,20 +22,6 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `basicinfo`
---
-
-CREATE TABLE IF NOT EXISTS `basicinfo` (
-  `componentid` int(20) NOT NULL,
-  `city` varchar(50) NOT NULL,
-  `job` varchar(50) NOT NULL,
-  `from` varchar(50) NOT NULL,
-  `age` int(4) NOT NULL,
-  `basicinfoid` int(20) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`basicinfoid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
 -- --------------------------------------------------------
 
 --

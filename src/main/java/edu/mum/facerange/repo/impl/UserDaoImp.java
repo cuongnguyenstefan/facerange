@@ -1,18 +1,16 @@
 package edu.mum.facerange.repo.impl;
 
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
-
-import javax.enterprise.context.ApplicationScoped;
 
 import edu.mum.facerange.model.User;
 import edu.mum.facerange.repo.UserDao;
 import edu.mum.facerange.util.DatabaseUtilities;
-@ApplicationScoped
+
 public class UserDaoImp implements UserDao {
 	
 	@Override
@@ -48,6 +46,7 @@ public class UserDaoImp implements UserDao {
 			user.setGender(rs.getString("gender"));
 			user.setPassword(rs.getString("password"));
 			user.setPicture(rs.getInt("picture"));
+			user.setUserId(rs.getInt("userid"));
 		}
 		else
 			user=null;
