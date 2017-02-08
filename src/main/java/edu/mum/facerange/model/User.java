@@ -1,15 +1,21 @@
 package edu.mum.facerange.model;
 
+
+
+
+
 import java.util.Date;
 
+import javax.enterprise.context.ApplicationScoped;
+@ApplicationScoped
 public class User {
 	private Integer userId;
 	private String gender;
-	private String fullnane;
+	private String fullName;
 	private String email;
 	private String password;
 	private Date dob;
-	private String picture;
+	private int picture;
 	private String userName;
 	public String getUserName() {
 		return userName;
@@ -19,11 +25,11 @@ public class User {
 		this.userName = userName;
 	}
 
-	public String getPicture() {
+	public int getPicture() {
 		return picture;
 	}
 
-	public void setPicture(String picture) {
+	public void setPicture(int picture) {
 		this.picture = picture;
 	}
 
@@ -51,12 +57,13 @@ public class User {
 		this.gender = gender;
 	}
 
-	public String getFullnane() {
-		return fullnane;
+	
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setFullnane(String fullnane) {
-		this.fullnane = fullnane;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public String getEmail() {
