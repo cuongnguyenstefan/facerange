@@ -61,7 +61,7 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 	public String login() {
 		user = auth.signin(this.userName, this.password);
 		if (user != null) {
-			return "index";
+			return "index?faces-redirect=true";
 		}
 		password = "";
 		return "authentication/login?faces-redirect=true";

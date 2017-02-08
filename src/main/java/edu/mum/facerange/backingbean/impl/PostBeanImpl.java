@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.Application;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -13,6 +14,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+import edu.mum.facerange.backingbean.AuthenticationBean;
 import edu.mum.facerange.model.Comment;
 import edu.mum.facerange.model.Like;
 import edu.mum.facerange.model.Post;
@@ -20,6 +22,7 @@ import edu.mum.facerange.model.User;
 import edu.mum.facerange.service.CommentService;
 import edu.mum.facerange.service.LikeService;
 import edu.mum.facerange.service.PostService;
+import edu.mum.facerange.service.UserService;
 import edu.mum.facerange.util.ConvertUtils;
 
 @Named("postBean")
@@ -32,16 +35,16 @@ public class PostBeanImpl implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
+	UserService userService;
+	
+	@Inject
 	PostService postService;
 
 	@Inject
 	CommentService commentService;
 	
 	@Inject
-	LikeService likeService;
-	
-	AuthenticationBeanImpl authenBean = (AuthenticationBeanImpl) FacesContext.getCurrentInstance().
-			getExternalContext().getSessionMap().get("authenticationBean");
+	LikeService likeService;	
 	
 	private String status;
 
@@ -87,30 +90,29 @@ public class PostBeanImpl implements Serializable {
 				.containsKey(ResponseStateManager.VIEW_STATE_PARAM);
 	}
 
-	public User getLoggedUser() {
-		//Get logged user
-		//authenBean.getUser()
-		User user = new User();
-		user.setUserId(9);
-		user.setFullName("Tan Luong");
-		return user;
+	public AuthenticationBeanImpl getAuthenBean(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        Application application = context.getApplication();
+        return application.evaluateExpressionGet(context, "#{authenticationBean}", AuthenticationBeanImpl.class);
+    }
+	
+	public User getLoggedUser() {		
+		return getAuthenBean().getUser();
+		
 	}
 
 	public User getUser() {
-		// HttpServletRequest req =
-		// (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		// int userId = ConvertUtils.parseInt(req.getParameter("userid"), 0);
-		//
-		
 		
 		if (getUserId() <= 0) {
 			return getLoggedUser();
+		}		
+
+		User user = userService.getUser(getUserId());
+		
+		if (user == null) {
+			return getLoggedUser();
 		}
-
-		User user = new User();
-		user.setUserId(getUserId());
-		user.setFullName("Guest User");
-
+		
 		return user;
 	}
 

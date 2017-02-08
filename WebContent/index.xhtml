@@ -7,11 +7,19 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <head>
-	<title>IGNORED</title>
+<title>IGNORED</title>
 </head>
 
-<body>
-      <ui:composition template="/templates/masterLayout.xhtml">
-      </ui:composition>
-</body>
+<h:body>
+	<f:view>
+
+
+		<f:event listener="#{authenticationBean.checkLogin}"
+			type="preRenderView" />
+
+		<ui:composition template="/templates/masterLayout.xhtml">
+		</ui:composition>
+
+	</f:view>
+</h:body>
 </html>

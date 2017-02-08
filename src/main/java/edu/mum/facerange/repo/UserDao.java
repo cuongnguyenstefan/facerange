@@ -12,7 +12,7 @@ public interface UserDao {
 	public boolean deleteByEmail(String email);
 
 	public void updateUser(User user);
-
+	public User getUser(int userId);
 	public List<User> allUSer();
 	public boolean checkAvailable(String value);
 	

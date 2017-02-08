@@ -7,19 +7,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
+
 import edu.mum.facerange.model.User;
 import edu.mum.facerange.repo.UserDao;
 import edu.mum.facerange.util.DatabaseUtilities;
 
+@ApplicationScoped
 public class UserDaoImp implements UserDao {
-	
+
 	@Override
 	public void addUser(User user) {
 		try {
 			Connection con = DatabaseUtilities.getConnection();
-			String querry = "insert into users(fullname,email,gender,password,username,picture) values('" + user.getFullName() + "','"
-					+ user.getEmail() + "','" + user.getGender() + "','" + user.getPassword() + "','" + user.getUserName() + "'"
-							+ ",'" + user.getPicture() + "')";
+			String querry = "insert into users(fullname,email,gender,password,username,picture) values('"
+					+ user.getFullName() + "','" + user.getEmail() + "','" + user.getGender() + "','"
+					+ user.getPassword() + "','" + user.getUserName() + "'" + ",'" + user.getPicture() + "')";
 			Statement st = con.createStatement();
 			st.executeUpdate(querry);
 
@@ -28,56 +31,55 @@ public class UserDaoImp implements UserDao {
 		}
 	}
 
-	
 	@Override
 	public User signin(String userName, String password) {
-		User user=new User();
-		try{
-		Connection con = DatabaseUtilities.getConnection();
-		String query="select * from users where username='"+userName+"' and password='"+password+"'";
-		PreparedStatement pr=con.prepareStatement(query);
-		ResultSet rs=pr.executeQuery();
-		if(rs.next())
-		{
-			user.setEmail(rs.getString("email"));
-			user.setUserName(rs.getString("username"));
-			user.setDob(rs.getDate("dob"));
-			user.setFullName(rs.getString("fullname"));
-			user.setGender(rs.getString("gender"));
-			user.setPassword(rs.getString("password"));
-			user.setPicture(rs.getInt("picture"));
-			user.setUserId(rs.getInt("userid"));
-		}
-		else
-			user=null;
+		User user = null;
 		
+		try {
+			Connection con = DatabaseUtilities.getConnection();
+			String query = "select * from users where username = ? and password= ?";
+			PreparedStatement pr = con.prepareStatement(query);
+			pr.setString(1, userName);
+			pr.setString(2, password);
+			
+			ResultSet rs = pr.executeQuery();
+			if (rs.next()) {
+				user = new User();
+				user.setUserId(rs.getInt("userid"));
+				user.setEmail(rs.getString("email"));
+				user.setUserName(rs.getString("username"));
+				user.setDob(rs.getDate("dob"));
+				user.setFullName(rs.getString("fullname"));
+				user.setGender(rs.getString("gender"));
+				user.setPassword(rs.getString("password"));
+				user.setPicture(rs.getInt("picture"));
+			} 
+
+			con.close();
+
+		} catch (SQLException e) {
+			System.out.println("Error while adding user: " + e.getMessage());
 		}
-		 catch (SQLException e) {
-				System.out.println("Error while adding user: " + e.getMessage());
-			}
-		
+
 		return user;
 	}
-	
-	public boolean checkAvailable(String value){
-		ResultSet rs; 
-		boolean aval=false;
-		try{
+
+	public boolean checkAvailable(String value) {
+		ResultSet rs;
+		boolean aval = false;
+		try {
 			Connection con = DatabaseUtilities.getConnection();
-			String query="select * from users where username='"+value+"'";
-			PreparedStatement pr=con.prepareStatement(query);
-			 rs=pr.executeQuery();
-			 aval=rs.next();
-			 
-		}
-		catch(SQLException e)
-		{
+			String query = "select * from users where username='" + value + "'";
+			PreparedStatement pr = con.prepareStatement(query);
+			rs = pr.executeQuery();
+			aval = rs.next();
+
+		} catch (SQLException e) {
 			System.out.println("Error while finding user: " + e.getMessage());
 		}
 		return aval;
-		
+
 	}
-	
 
 	@Override
 	public boolean deleteByEmail(String email) {
@@ -103,6 +105,34 @@ public class UserDaoImp implements UserDao {
 		return null;
 	}
 
+	@Override
+	public User getUser(int userId) {
+		User user = null;
+		try {
+			Connection con = DatabaseUtilities.getConnection();
+			String query = "select * from users where userid = ?";
+			PreparedStatement pr = con.prepareStatement(query);
+			pr.setInt(1, userId);
+			ResultSet rs = pr.executeQuery();
+			if (rs.next()) {
+				user = new User();
+				user.setUserId(userId);
+				user.setEmail(rs.getString("email"));
+				user.setUserName(rs.getString("username"));
+				user.setDob(rs.getDate("dob"));
+				user.setFullName(rs.getString("fullname"));
+				user.setGender(rs.getString("gender"));
+				user.setPassword(rs.getString("password"));
+				user.setPicture(rs.getInt("picture"));
+			}
+			
+			con.close();
 
-	
+		} catch (SQLException e) {
+			System.out.println("Error while adding user: " + e.getMessage());
+		}
+
+		return user;
+	}
+
 }
