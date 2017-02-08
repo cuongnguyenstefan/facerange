@@ -14,9 +14,11 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import edu.mum.facerange.model.Comment;
+import edu.mum.facerange.model.Like;
 import edu.mum.facerange.model.Post;
 import edu.mum.facerange.model.User;
 import edu.mum.facerange.service.CommentService;
+import edu.mum.facerange.service.LikeService;
 import edu.mum.facerange.service.PostService;
 import edu.mum.facerange.util.ConvertUtils;
 
@@ -34,6 +36,9 @@ public class PostBeanImpl implements Serializable {
 
 	@Inject
 	CommentService commentService;
+	
+	@Inject
+	LikeService likeService;
 	
 	AuthenticationBeanImpl authenBean = (AuthenticationBeanImpl) FacesContext.getCurrentInstance().
 			getExternalContext().getSessionMap().get("authenticationBean");
@@ -82,7 +87,7 @@ public class PostBeanImpl implements Serializable {
 				.containsKey(ResponseStateManager.VIEW_STATE_PARAM);
 	}
 
-	public User getLogUser() {
+	public User getLoggedUser() {
 		//Get logged user
 		//authenBean.getUser()
 		User user = new User();
@@ -99,7 +104,7 @@ public class PostBeanImpl implements Serializable {
 		
 		
 		if (getUserId() <= 0) {
-			return getLogUser();
+			return getLoggedUser();
 		}
 
 		User user = new User();
@@ -110,7 +115,7 @@ public class PostBeanImpl implements Serializable {
 	}
 
 	public boolean getOwner() {
-		return getLogUser().getUserId() == getUser().getUserId();
+		return getLoggedUser().getUserId() == getUser().getUserId();
 	}
 
 	public String addPost() {
@@ -135,6 +140,19 @@ public class PostBeanImpl implements Serializable {
 		commentService.deleteComment(10);
 		return null;
 	}
+	
+	public String likePost(int postId) {
+		
+		if (!likeService.liked(postId, getLoggedUser().getUserId())) {
+			Like like = new Like();
+			like.setPostId(postId);
+			like.setUserId(getLoggedUser().getUserId());
+			
+			likeService.addLike(like);
+		}
+		
+		return null;
+	}
 
 	public List<Post> getPosts() {
 		return postService.getUserPosts(getUser().getUserId());
@@ -154,6 +172,20 @@ public class PostBeanImpl implements Serializable {
 		}
 
 		return count + " Comments";
+
+	}
+	
+	public String countLikes(int postId) {
+		
+		int count = likeService.count(postId);
+
+		if (count == 0) {
+			return "Like";
+		} else if (count == 1) {
+			return "1 Like";
+		}
+
+		return count + " Likes";
 
 	}
 }

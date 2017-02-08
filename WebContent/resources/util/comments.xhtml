@@ -13,6 +13,8 @@
 	<composite:attribute name="postId" />
 	<composite:attribute name="comment" />
 	<composite:attribute name="comments" />
+	<composite:attribute name="countcomments" />
+	<composite:attribute name="countlikes" />
 	<composite:attribute name="owner" />
 	<composite:attribute name="render" default="@this" />
 	<composite:attribute name="controller" required="true" />
@@ -28,6 +30,14 @@
 
 <composite:implementation>
 	<h:form id="commentform" styleClass="form-inline">
+		<p class="post-actions">
+			<h:outputText id="countcomments"
+				value="#{cc.attrs.countcomments}" />
+			-
+			<h:outputText id="countlikes"
+				value="#{cc.attrs.countlikes}" />
+		</p>
+							
 		<div class="comment-form">
 
 			<div class="form-group">
@@ -37,7 +47,7 @@
 			</div>			
 			<h:commandButton id="commentButton" value="Add" style="display:none;"
 				styleClass="btn btn-default">
-				<f:ajax render="comment comments" execute="@form" listener="#{cc.attrs.controller[cc.attrs.addComment]}" />
+				<f:ajax render="comment comments countcomments" execute="@form" listener="#{cc.attrs.controller[cc.attrs.addComment]}" />
 			</h:commandButton>
 
 		</div>
