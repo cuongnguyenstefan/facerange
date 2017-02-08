@@ -6,11 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.enterprise.context.ApplicationScoped;
+
 import com.mysql.jdbc.Statement;
 
 import edu.mum.facerange.repo.ImageStoreDao;
 import edu.mum.facerange.util.DatabaseUtilities;
 
+@ApplicationScoped
 public class ImageStoreDaoImpl implements ImageStoreDao {
 
 	private final String INSERT = "INSERT INTO files (file) VALUES (?)";
