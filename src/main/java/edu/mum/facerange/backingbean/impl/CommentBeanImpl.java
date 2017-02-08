@@ -81,7 +81,7 @@ public class CommentBeanImpl implements Serializable {
 		///authenBean.getUser();
 		User user = new User();
 		user.setUserId(9);
-		user.setFullnane("Tan Luong");
+		user.setFullName("Tan Luong");
 		return user;
 	}
 }

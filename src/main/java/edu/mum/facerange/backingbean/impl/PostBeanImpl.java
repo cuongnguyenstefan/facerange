@@ -92,7 +92,7 @@ public class PostBeanImpl implements Serializable {
 		//authenBean.getUser()
 		User user = new User();
 		user.setUserId(9);
-		user.setFullnane("Tan Luong");
+		user.setFullName("Tan Luong");
 		return user;
 	}
 
@@ -109,7 +109,7 @@ public class PostBeanImpl implements Serializable {
 
 		User user = new User();
 		user.setUserId(getUserId());
-		user.setFullnane("Guest User");
+		user.setFullName("Guest User");
 
 		return user;
 	}
