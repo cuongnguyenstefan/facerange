@@ -140,8 +140,10 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(50) COLLATE utf8_bin NOT NULL,
   `datecreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dateupdated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `dob` date DEFAULT NULL,
-  `gender` varchar(50) COLLATE utf8_bin NOT NULL,
+  `dob` datetime DEFAULT NULL,
+  `gender` varchar(20) COLLATE utf8_bin NOT NULL,
+  `picture` int(11) DEFAULT NULL,
+  `username` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`userid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=9 ;
 

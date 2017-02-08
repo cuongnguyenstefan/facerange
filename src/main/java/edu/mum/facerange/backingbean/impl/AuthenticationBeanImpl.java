@@ -1,15 +1,20 @@
 package edu.mum.facerange.backingbean.impl;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
+import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.primefaces.model.UploadedFile;
 
 import edu.mum.facerange.backingbean.AuthenticationBean;
 import edu.mum.facerange.model.User;
+import edu.mum.facerange.repo.ImageStoreDao;
 import edu.mum.facerange.service.AuthenticationService;
 
 @Named("authenticationBean")
@@ -17,21 +22,48 @@ import edu.mum.facerange.service.AuthenticationService;
 public class AuthenticationBeanImpl implements AuthenticationBean, Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private UploadedFile profilepic;
+	@Inject
+	private AuthenticationService auth;
+	private String userName;
+	private String password;
 
-	// @Inject
-	private AuthenticationService authenticationService;
+	public UploadedFile getProfilepic() {
+		return profilepic;
+	}
+
+	public void setProfilepic(UploadedFile profilepic) {
+		this.profilepic = profilepic;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Inject
+	private ImageStoreDao imageStoreDao;
 
 	private User user;
 
-	private boolean remember;
-
 	@Override
 	public String login() {
-		User authenticating = authenticationService.authenticating(user);
-		if (authenticating.getUserId() != null) {
-			return "index";
+		user = auth.signin(this.userName, this.password);
+		if (user != null) {
+			return "index?faces-redirect=true";
 		}
-		user.setPassword("");
+		password = "";
 		return "authentication/login?faces-redirect=true";
 	}
 
@@ -47,27 +79,21 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 
 	@Override
 	public void checkLogin(ComponentSystemEvent event) {
-		// TODO remove
-		user = new User();
-		user.setUserId(9);
-		user.setUserName("ABC");
-		user.setFullnane("DEF");
-		user.setPassword("abc");
-		if (user == null || user.getPassword() == null || "".equals(user.getPassword())) {
+		if (user.getPassword() == null || "".equals(user.getPassword())) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			ConfigurableNavigationHandler handler = (ConfigurableNavigationHandler) context.getApplication()
 					.getNavigationHandler();
-			handler.performNavigation("authentication/login?faces-redirect=true");
+			handler.performNavigation("authentication/login");
 		}
 	}
 
 	@Override
 	public void checkLogged(ComponentSystemEvent event) {
-		if (user != null && user.getPassword() != null && !"".equals(user.getPassword())) {
+		if (user.getPassword() != null && !"".equals(user.getPassword())) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			ConfigurableNavigationHandler handler = (ConfigurableNavigationHandler) context.getApplication()
 					.getNavigationHandler();
-			handler.performNavigation("index?faces-redirect=true");
+			handler.performNavigation("index");
 		}
 	}
 
@@ -81,7 +107,7 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 
 	@Override
 	public String existUsername() {
-		boolean usernameExist = authenticationService.usernameExist(user.getEmail());
+		boolean usernameExist = auth.usernameExist(userName);
 		if (usernameExist) {
 			return "Username already exists";
 		}
@@ -90,16 +116,16 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 
 	@Override
 	public String signup() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public boolean isRemember() {
-		return remember;
-	}
-
-	public void setRemember(boolean remember) {
-		this.remember = remember;
+		try {
+			//add the 
+			int saveImage = imageStoreDao.saveImage(profilepic.getInputstream());
+			user.setPicture(saveImage);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		auth.addUser(this.user);
+		return "login1";
 	}
 
 }
