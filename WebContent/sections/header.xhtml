@@ -13,6 +13,11 @@
 		<header>
 		<div class="container">
 			<h:graphicImage value="#{resource['images:logo.png']}"></h:graphicImage>
+			
+			<div class="pull-right">
+				<strong>Welcome, <h:outputText value="#{postBean.loggedUser.fullName}" />!</strong>
+			</div>
+			
 		</div>
 		</header>
 	</ui:composition>
