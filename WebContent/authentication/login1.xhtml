@@ -20,7 +20,7 @@
 						<h:outputText value="User Name:" />
 						<h:outputText style="color:red" value="*  " />
 					</h:panelGroup>
-					<p:inputText id="userName" value="#{user.userName}" required="true" label="User Name" title="Enter your User Name!" />
+					<p:inputText id="userName" value="#{authenticationBean.userName}" required="true" label="User Name" title="Enter your User Name!" />
 					<h:panelGroup>
 						<p:message id="userNameMsg" for="userName" />
 						<p:tooltip for="userName" styleClass="tooltip" showEvent="focus" hideEvent="blur" />
@@ -30,14 +30,14 @@
 						<h:outputText value="Enter Password:" />
 						<h:outputText style="color:red" value="*  " />
 					</h:panelGroup>
-					<p:password id="pass" value="#{user.password}" required="true" label="Password" title="Please enter a password!" />
+					<p:password id="pass" value="#{authenticationBean.password}" required="true" label="Password" title="Please enter a password!" />
 					<h:panelGroup>
 						<p:message id="passMsg" for="pass" />
 						<p:tooltip for="pass" styleClass="tooltip" showEvent="focus" hideEvent="blur" />
 					</h:panelGroup>
 					
 					<p:commandButton id="newUserButton" action="signup1" immediate="true" icon="ui-icon-plus" value="Sign Up" />
-					<p:commandButton id="submitButton" action="confirmSignIn" update="logPanelGrid,messages" icon="ui-icon-check" value="Sign In" />
+					<p:commandButton id="submitButton" action="#{authenticationBean.login}" update="logPanelGrid,messages" icon="ui-icon-check" value="Sign In" />
 					
 				</h:panelGrid>
 			</p:fieldset>
