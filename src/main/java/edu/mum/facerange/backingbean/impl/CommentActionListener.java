@@ -45,7 +45,7 @@ public class CommentActionListener implements ActionListener {
 	public User getLogUser() {
 		User user = new User();
 		user.setUserId(9);
-		user.setFullnane("Tan Luong");
+		user.setFullName("Tan Luong");
 		return user;
 	}
 }
