@@ -23,7 +23,7 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao, Seriali
 
 	private String SELECT_BY_COMPONENTID = "SELECT * FROM basicinfo WHERE componentid = ?";
 
-	private String INSERT = "INSERT into basicinfo(componentid, from, city, job) values (?, ?, ?, ?)";
+	private String INSERT = "INSERT into basicinfo(componentid, basicinfo.from, city, job) values (?, ?, ?, ?)";
 	
 	private String UPDATE = "UPDATE basicinfo SET basicinfo.from = ?, city = ?, job = ? WHERE basicinfoid = ?";
 
@@ -32,8 +32,9 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao, Seriali
 	private String DELETE_BY_ID = "DELETE FROM basicinfo WHERE basicinfoid = ?";
 
 	public List<BasicInfo> getByComponentId(int id) {
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(SELECT_BY_COMPONENTID);
 			prepareStatement.setInt(1, id);
 			ResultSet executeQuery = prepareStatement.executeQuery();
@@ -43,13 +44,20 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao, Seriali
 			}
 		} catch (SQLException e) {
 			System.out.println("Error while finding component basic info with id - " + id + ": " + e.getMessage());
+		}  finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
 
 	public boolean add(BasicInfo basicInfo) {
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(INSERT);
 			prepareStatement.setInt(1, basicInfo.getComponentId());
 			prepareStatement.setString(2, basicInfo.getFrom());
@@ -59,19 +67,32 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao, Seriali
 		} catch (SQLException e) {
 			System.out.println("Error while adding component basic info: " + e.getMessage());
 			return false;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}
 
 	public boolean removeByComponentId(int id) {
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(DELETE_BY_COMPONENTID);
 			prepareStatement.setInt(1, id);
 			prepareStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Error while removing component basic info - " + id + " " + e.getMessage());
 			return false;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}
@@ -95,22 +116,30 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao, Seriali
 
 	@Override
 	public boolean removeById(int id) {
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(DELETE_BY_ID);
 			prepareStatement.setInt(1, id);
 			prepareStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Error while removing component basic info - " + id + " " + e.getMessage());
 			return false;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}
 
 	@Override
 	public boolean update(BasicInfo basicInfo) {
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(UPDATE);
 			prepareStatement.setString(1, basicInfo.getFrom());
 			prepareStatement.setString(2, basicInfo.getCity());
@@ -120,6 +149,12 @@ public class ComponentBasicInfoDaoImpl implements ComponentBasicInfoDao, Seriali
 		} catch (SQLException e) {
 			System.out.println("Error while updating component basic info: " + e.getMessage());
 			return false;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}

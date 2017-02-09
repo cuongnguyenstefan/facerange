@@ -18,8 +18,9 @@ public class UserDaoImp implements UserDao {
 
 	@Override
 	public void addUser(User user) {
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			String querry = "insert into users(fullname,email,gender,password,username,picture) values('"
 					+ user.getFullName() + "','" + user.getEmail() + "','" + user.getGender() + "','"
 					+ user.getPassword() + "','" + user.getUserName() + "'" + ",'" + user.getPicture() + "')";
@@ -28,15 +29,21 @@ public class UserDaoImp implements UserDao {
 
 		} catch (SQLException e) {
 			System.out.println("Error while adding user: " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	@Override
 	public User signin(String userName, String password) {
 		User user = null;
-		
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			String query = "select * from users where username = ? and password= ?";
 			PreparedStatement pr = con.prepareStatement(query);
 			pr.setString(1, userName);
@@ -59,6 +66,12 @@ public class UserDaoImp implements UserDao {
 
 		} catch (SQLException e) {
 			System.out.println("Error while adding user: " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return user;
@@ -107,9 +120,10 @@ public class UserDaoImp implements UserDao {
 
 	@Override
 	public User getUser(int userId) {
+		Connection con = null;
 		User user = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			String query = "select * from users where userid = ?";
 			PreparedStatement pr = con.prepareStatement(query);
 			pr.setInt(1, userId);
@@ -130,6 +144,12 @@ public class UserDaoImp implements UserDao {
 
 		} catch (SQLException e) {
 			System.out.println("Error while adding user: " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return user;

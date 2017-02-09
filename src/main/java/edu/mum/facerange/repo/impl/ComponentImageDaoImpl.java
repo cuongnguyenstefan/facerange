@@ -33,8 +33,9 @@ public class ComponentImageDaoImpl implements ComponentImageDao, Serializable {
 	private String DELETE_BY_ID = "DELETE FROM componentimage WHERE imageid = ?";
 
 	public List<ComponentImage> getByComponentId(int id) {
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(SELECT_BY_COMPONENTID);
 			prepareStatement.setInt(1, id);
 			ResultSet executeQuery = prepareStatement.executeQuery();
@@ -44,13 +45,20 @@ public class ComponentImageDaoImpl implements ComponentImageDao, Serializable {
 			}
 		} catch (SQLException e) {
 			System.out.println("Error while finding component image with id - " + id + ": " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
 
 	public boolean add(ComponentImage componentImage) {
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(INSERT);
 			prepareStatement.setInt(1, componentImage.getComponentId());
 			prepareStatement.setString(2, componentImage.getImage1());
@@ -60,19 +68,32 @@ public class ComponentImageDaoImpl implements ComponentImageDao, Serializable {
 		} catch (SQLException e) {
 			System.out.println("Error while adding component image: " + e.getMessage());
 			return false;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}
 
 	public boolean removeByComponentId(int id) {
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(DELETE_BY_COMPONENTID);
 			prepareStatement.setInt(1, id);
 			prepareStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Error while removing component image - " + id + " " + e.getMessage());
 			return false;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}
@@ -95,22 +116,30 @@ public class ComponentImageDaoImpl implements ComponentImageDao, Serializable {
 
 	@Override
 	public boolean removeById(int id) {
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(DELETE_BY_ID);
 			prepareStatement.setInt(1, id);
 			prepareStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Error while removing component image - " + id + " " + e.getMessage());
 			return false;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}
 
 	@Override
 	public boolean update(ComponentImage componentImage) {
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(UPDATE);
 			if (componentImage.getImage1() != null) {
 				prepareStatement.setString(1, componentImage.getImage1());
@@ -132,6 +161,12 @@ public class ComponentImageDaoImpl implements ComponentImageDao, Serializable {
 		} catch (SQLException e) {
 			System.out.println("Error while updating component image: " + e.getMessage());
 			return false;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}

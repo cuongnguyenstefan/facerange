@@ -23,11 +23,11 @@ public class ComponentSocialMediaDaoImpl implements ComponentSocialMediaDao, Ser
 
 	private String SELECT_BY_COMPONENTID = "SELECT * FROM socialmedia WHERE componentid = ?";
 
-	private String INSERT = "INSERT into socialmedia(componentid, facebook, instagram, twitter, youtuble) values (?, ?, ?, ?, ?)";
+	private String INSERT = "INSERT into socialmedia(componentid, facebook, instagram, twitter, youtube) values (?, ?, ?, ?, ?)";
 
 	private String DELETE_BY_COMPONENTID = "DELETE FROM socialmedia WHERE componentid = ?";
 	
-	private String UPDATE = "UPDATE socialmedia SET facebook = ?, instagram = ?, twitter = ?, youtuble = ? WHERE socialmediaid = ?";
+	private String UPDATE = "UPDATE socialmedia SET facebook = ?, instagram = ?, twitter = ?, youtube = ? WHERE socialmediaid = ?";
 
 	private String DELETE_BY_ID = "DELETE FROM socialmedia WHERE socialmediaid = ?";
 
@@ -50,8 +50,9 @@ public class ComponentSocialMediaDaoImpl implements ComponentSocialMediaDao, Ser
 
 	@Override
 	public List<SocialMedia> getByComponentId(int id) {
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(SELECT_BY_COMPONENTID);
 			prepareStatement.setInt(1, id);
 			ResultSet executeQuery = prepareStatement.executeQuery();
@@ -61,14 +62,21 @@ public class ComponentSocialMediaDaoImpl implements ComponentSocialMediaDao, Ser
 			}
 		} catch (SQLException e) {
 			System.out.println("Error while finding component social media with id - " + id + ": " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
 
 	@Override
 	public boolean add(SocialMedia socialMedia) {
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(INSERT);
 			prepareStatement.setInt(1, socialMedia.getComponentId());
 			prepareStatement.setString(2, socialMedia.getFacebookLink());
@@ -79,28 +87,42 @@ public class ComponentSocialMediaDaoImpl implements ComponentSocialMediaDao, Ser
 		} catch (SQLException e) {
 			System.out.println("Error while adding component social media: " + e.getMessage());
 			return false;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}
 
 	@Override
 	public boolean removeByComponentId(int id) {
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(DELETE_BY_COMPONENTID);
 			prepareStatement.setInt(1, id);
 			prepareStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Error while removing component social media - " + id + " " + e.getMessage());
 			return false;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}
 
 	@Override
 	public boolean update(SocialMedia socialMedia) {
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(UPDATE);
 			prepareStatement.setString(1, socialMedia.getFacebookLink());
 			prepareStatement.setString(2, socialMedia.getInstagramLink());
@@ -111,20 +133,33 @@ public class ComponentSocialMediaDaoImpl implements ComponentSocialMediaDao, Ser
 		} catch (SQLException e) {
 			System.out.println("Error while updating component social media: " + e.getMessage());
 			return false;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}
 
 	@Override
 	public boolean removeById(int id) {
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(DELETE_BY_ID);
 			prepareStatement.setInt(1, id);
 			prepareStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Error while removing component social media - " + id + " " + e.getMessage());
 			return false;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}

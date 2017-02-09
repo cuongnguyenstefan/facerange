@@ -22,8 +22,9 @@ public class ImageStoreDaoImpl implements ImageStoreDao {
 
 	@Override
 	public int saveImage(InputStream is) throws Exception {
+		Connection connection = null;
 		try {
-			Connection connection = DatabaseUtilities.getConnection();
+			connection = DatabaseUtilities.getConnection();
 			connection.setAutoCommit(false);
 
 			PreparedStatement statement = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
@@ -41,6 +42,12 @@ public class ImageStoreDaoImpl implements ImageStoreDao {
 		} catch (Exception e) {
 			System.out.println("Fail to save image: " + e.getMessage());
 			throw e;
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 	}
@@ -48,7 +55,7 @@ public class ImageStoreDaoImpl implements ImageStoreDao {
 	@Override
 	public byte[] getImage(int id) {
 		byte[] imageBytes = null;
-		Connection connection;
+		Connection connection = null;
 		try {
 			connection = DatabaseUtilities.getConnection();
 			PreparedStatement statement = connection.prepareStatement(SELECT);
@@ -63,6 +70,12 @@ public class ImageStoreDaoImpl implements ImageStoreDao {
 			connection.close();
 		} catch (SQLException e) {
 			System.out.println("Fail to get image id: " + id + " :" + e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return imageBytes;

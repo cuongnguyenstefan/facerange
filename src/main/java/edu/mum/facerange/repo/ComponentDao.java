@@ -8,7 +8,7 @@ public interface ComponentDao {
 	
 	public List<Component> byUserId(int userId);
 	
-	public boolean addComponent(Component component);
+	public int addComponent(Component component);
 	
 	public boolean removeComponent(int componentId);
 	

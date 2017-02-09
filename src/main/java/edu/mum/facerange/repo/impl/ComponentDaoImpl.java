@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.jdbc.Statement;
+
 import edu.mum.facerange.enumeration.ComponentType;
 import edu.mum.facerange.model.Component;
 import edu.mum.facerange.repo.ComponentDao;
@@ -24,13 +26,14 @@ public class ComponentDaoImpl implements ComponentDao, Serializable {
 
 	private String SELECT_BY_USERID = "SELECT * FROM component WHERE userid = ?";
 
-	private String INSERT = "INSERT into component(componentid, componenttype, userid) values (?, ?, ?)";
+	private String INSERT = "INSERT into component(componenettype, userid) values (?, ?)";
 
 	private String DELETE = "DELETE FROM component WHERE componentid = ?";
 
 	public List<Component> byUserId(int userId) {
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(SELECT_BY_USERID);
 			prepareStatement.setInt(1, userId);
 			ResultSet executeQuery = prepareStatement.executeQuery();
@@ -38,34 +41,57 @@ public class ComponentDaoImpl implements ComponentDao, Serializable {
 			return components;
 		} catch (SQLException e) {
 			System.out.println("Error while finding component basic info with id - " + userId + ": " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
 
-	public boolean addComponent(Component component) {
+	public int addComponent(Component component) {
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
-			PreparedStatement prepareStatement = con.prepareStatement(INSERT);
-			prepareStatement.setInt(1, component.getComponentId());
-			prepareStatement.setString(2, component.getComponentType().toString());
-			prepareStatement.setInt(3, component.getUserId());
+			con = DatabaseUtilities.getConnection();
+			PreparedStatement prepareStatement = con.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
+			prepareStatement.setString(1, component.getComponentType().toString());
+			prepareStatement.setInt(2, component.getUserId());
 			prepareStatement.executeUpdate();
+			ResultSet generatedKeys = prepareStatement.getGeneratedKeys();
+			if (generatedKeys.next()) {
+				return generatedKeys.getInt(1);
+			}
 		} catch (SQLException e) {
 			System.out.println("Error while adding component basic info: " + e.getMessage());
-			return false;
+			return 0;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-		return true;
+		return 0;
 	}
 
 	public boolean removeComponent(int componentId) {
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(DELETE);
 			prepareStatement.setInt(1, componentId);
 			prepareStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Error while removing component basic info - " + componentId + " " + e.getMessage());
 			return false;
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}
