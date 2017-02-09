@@ -14,14 +14,14 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">Feature Images</h3>
 			</div>
-			<ui:repeat var="image" value="#{componentBean.componentImages}">
+			<ui:repeat var="image" value="#{editComponentBean.componentImages}">
 				<div class="panel-body">
 					<ui:fragment rendered="#{not empty image.image1}">
 						<div>
 							<h:outputLink value="../facerange/image?id=#{image.image1}">
 								<h:graphicImage value="/image?id=#{image.image1}"></h:graphicImage>
 							</h:outputLink>
-							<h:commandButton action="#{componentBean.removeImage(image, 1)}"
+							<h:commandButton action="#{editComponentBean.removeImage(image, 1)}"
 								styleClass="btn btn-default btn-sm" value="Remove">
 							</h:commandButton>
 						</div>
@@ -33,7 +33,7 @@
 							<h:outputLink value="../facerange/image?id=#{image.image2}">
 								<h:graphicImage value="/image?id=#{image.image2}"></h:graphicImage>
 							</h:outputLink>
-							<h:commandButton action="#{componentBean.removeImage(image, 2)}"
+							<h:commandButton action="#{editComponentBean.removeImage(image, 2)}"
 								styleClass="btn btn-default btn-sm" value="Remove">
 							</h:commandButton>
 						</div>
@@ -45,12 +45,13 @@
 							<h:outputLink value="../facerange/image?id=#{image.image3}">
 								<h:graphicImage value="/image?id=#{image.image3}"></h:graphicImage>
 							</h:outputLink>
-							<h:commandButton action="#{componentBean.removeImage(image, 3)}"
+							<h:commandButton action="#{editComponentBean.removeImage(image, 3)}"
 								styleClass="btn btn-default btn-sm" value="Remove">
 							</h:commandButton>
 						</div>
 						<div class="clearfix"></div>
 					</ui:fragment>
+					<h:form>
 					<ui:fragment rendered="#{empty image.image1}">
 						<p:fileUpload value="#{image.file1}" mode="simple" />
 					</ui:fragment>
@@ -60,14 +61,16 @@
 					<ui:fragment rendered="#{empty image.image3}">
 						<p:fileUpload value="#{image.file3}" mode="simple" />
 					</ui:fragment>
+					<h:commandButton action="#{editComponentBean.saveImage(image)}"></h:commandButton>
+					</h:form>
 				</div>
 			</ui:repeat>
 			<div class="panel-body">
-				<p:fileUpload value="#{componentBean.componentImage.file1}"
+				<p:fileUpload value="#{editComponentBean.componentImage.file1}"
 					mode="simple" />
-				<p:fileUpload value="#{componentBean.componentImage.file2}"
+				<p:fileUpload value="#{editComponentBean.componentImage.file2}"
 					mode="simple" />
-				<p:fileUpload value="#{componentBean.componentImage.file3}"
+				<p:fileUpload value="#{editComponentBean.componentImage.file3}"
 					mode="simple" />
 			</div>
 		</div>
