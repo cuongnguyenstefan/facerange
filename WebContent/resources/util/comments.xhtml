@@ -58,7 +58,7 @@
 			<ui:repeat value="#{cc.attrs.comments}" var="comment">
 				<div class="comment">
 					<h:outputLink value="?userid=#{comment.userId}" class="comment-avatar pull-left">
-						<h:graphicImage value="#{resource['images:user.png']}"></h:graphicImage>
+						<h:graphicImage value="image?id=#{comment.userId}"></h:graphicImage>
 					</h:outputLink>
 
 					<div class="pull-right">

@@ -143,14 +143,21 @@ public class PostBeanImpl implements Serializable {
 		return null;
 	}
 	
+	public boolean liked(int postId) {
+		return likeService.liked(postId, getLoggedUser().getUserId());
+	}
+	
 	public String likePost(int postId) {
 		
-		if (!likeService.liked(postId, getLoggedUser().getUserId())) {
+		if (!liked(postId)) {
 			Like like = new Like();
 			like.setPostId(postId);
 			like.setUserId(getLoggedUser().getUserId());
 			
 			likeService.addLike(like);
+		}
+		else {
+			likeService.deleteLike(postId, getLoggedUser().getUserId());
 		}
 		
 		return null;

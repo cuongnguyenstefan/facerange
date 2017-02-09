@@ -48,16 +48,16 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-sm-2">
-							<h:outputLink value="#" class="post-avatar thumbnail">
-								<h:graphicImage value="#{resource['images:user.png']}"></h:graphicImage>
+							<h:outputLink value="?userid=#{postBean.user.userId}" class="post-avatar thumbnail">
+								<h:graphicImage value="image?id=#{postBean.user.picture}"></h:graphicImage>
 								<div class="text-center">#{postBean.user.fullName}</div>
 							</h:outputLink>
 							<div class="likes text-center">
 								<h:form>
-									<h:commandLink title="Like post" 
+									<h:commandLink title="#{postBean.liked(post.postId) ? 'Unlike post' : 'Like post'}"
 										action="#{postBean.likePost(post.postId)}"
 										styleClass="edit-button">
-										<span class="glyphicon glyphicon-thumbs-up"></span>
+										<span class="glyphicon glyphicon-thumbs-#{postBean.liked(post.postId) ? 'down' : 'up'}"></span>
 										<f:ajax render="posts"></f:ajax>
 									</h:commandLink>
 									<h:commandLink title="Remove post" rendered="#{postBean.owner}"

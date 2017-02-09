@@ -1,7 +1,11 @@
 package edu.mum.facerange.servlet;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,8 +31,23 @@ public class ImageServlet extends HttpServlet {
 		try {
 			String id = req.getParameter("id");
 			byte[] imageBytes = imageStoreDao.getImage(Integer.parseInt(id));
-			resp.getOutputStream().write(imageBytes);
-			resp.getOutputStream().close();
+			
+			if (imageBytes != null)
+			{
+				resp.getOutputStream().write(imageBytes);
+				resp.getOutputStream().close();
+			}
+			else {
+				resp.setContentType("image/png");
+
+				String pathToWeb = getServletContext().getRealPath(File.separator);
+				File f = new File(pathToWeb + "resources/images/user.png");
+				BufferedImage bi = ImageIO.read(f);
+				OutputStream out = resp.getOutputStream();
+				ImageIO.write(bi, "jpg", out);
+				out.close();
+			}
+			
 
 		} catch (Exception e) {
 			resp.getWriter().write(e.getMessage());
