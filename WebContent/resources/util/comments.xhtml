@@ -67,7 +67,7 @@
 							styleClass="comment-delete-button"
 							action="#{cc.attrs.deleteAction}">
 							<span class="glyphicon glyphicon-remove"></span>
-							<f:ajax onevent="onDeleteCommentEvent"
+							<f:ajax onevent="onDeleteCommentEvent" 
 								listener="#{cc.attrs.controller[cc.attrs.deleteComment](comment.commentId)}" />
 						</h:commandLink>
 					</div>

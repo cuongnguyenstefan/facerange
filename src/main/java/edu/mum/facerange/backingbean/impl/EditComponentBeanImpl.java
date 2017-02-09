@@ -163,31 +163,35 @@ public class EditComponentBeanImpl implements EditComponentBean, Serializable {
 				componentService.saveSocialMedia(socialMedia, Service.CREATE);
 			}
 		}
-		for (ComponentImage ci : componentImages) {
-			try {
-				boolean changed = false;
-				if (ci.getFile1() != null && !"".equals(ci.getFile1().getFileName())) {
-					int saveImage = imageStoreDao.saveImage(ci.getFile1().getInputstream());
-					ci.setImage1(saveImage + "");
-					changed = true;
+		
+		if (componentImages != null) {
+			for (ComponentImage ci : componentImages) {
+				try {
+					boolean changed = false;
+					if (ci.getFile1() != null && !"".equals(ci.getFile1().getFileName())) {
+						int saveImage = imageStoreDao.saveImage(ci.getFile1().getInputstream());
+						ci.setImage1(saveImage + "");
+						changed = true;
+					}
+					if (ci.getFile2() != null && !"".equals(ci.getFile2().getFileName())) {
+						int saveImage = imageStoreDao.saveImage(ci.getFile2().getInputstream());
+						ci.setImage2(saveImage + "");
+						changed = true;
+					}
+					if (ci.getFile3() != null && !"".equals(ci.getFile3().getFileName())) {
+						int saveImage = imageStoreDao.saveImage(ci.getFile3().getInputstream());
+						ci.setImage3(saveImage + "");
+						changed = true;
+					}
+					if (changed) {
+						componentService.saveImageComponent(ci, Service.UPDATE);
+					}
+				} catch (Exception e) {
+					System.out.println("Exception trying to save images " + e.getMessage());
 				}
-				if (ci.getFile2() != null && !"".equals(ci.getFile2().getFileName())) {
-					int saveImage = imageStoreDao.saveImage(ci.getFile2().getInputstream());
-					ci.setImage2(saveImage + "");
-					changed = true;
-				}
-				if (ci.getFile3() != null && !"".equals(ci.getFile3().getFileName())) {
-					int saveImage = imageStoreDao.saveImage(ci.getFile3().getInputstream());
-					ci.setImage3(saveImage + "");
-					changed = true;
-				}
-				if (changed) {
-					componentService.saveImageComponent(ci, Service.UPDATE);
-				}
-			} catch (Exception e) {
-				System.out.println("Exception trying to save images " + e.getMessage());
 			}
 		}
+		
 		return "index?faces-redirect=true";
 	}
 

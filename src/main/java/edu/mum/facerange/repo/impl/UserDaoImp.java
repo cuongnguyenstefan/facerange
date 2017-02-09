@@ -62,13 +62,15 @@ public class UserDaoImp implements UserDao {
 				user.setPicture(rs.getInt("picture"));
 			} 
 
-			con.close();
+			//con.close();
 
 		} catch (SQLException e) {
 			System.out.println("Error while adding user: " + e.getMessage());
-		} finally {
+		} 
+		
+		finally {
 			try {
-				con.close();
+				if (con != null) con.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
