@@ -1,7 +1,9 @@
 package edu.mum.facerange.service.impl;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+
 
 import edu.mum.facerange.model.User;
 import edu.mum.facerange.service.AuthenticationService;

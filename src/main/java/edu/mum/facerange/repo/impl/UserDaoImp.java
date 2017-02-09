@@ -61,14 +61,15 @@ public class UserDaoImp implements UserDao {
 	}
 	
 	public boolean checkAvailable(String value){
-		ResultSet rs; 
+		 
 		boolean aval=false;
 		try{
 			Connection con = DatabaseUtilities.getConnection();
 			String query="select * from users where username='"+value+"'";
 			PreparedStatement pr=con.prepareStatement(query);
-			 rs=pr.executeQuery();
+			ResultSet rs=pr.executeQuery();
 			 aval=rs.next();
+			 System.out.println(aval);
 			 
 		}
 		catch(SQLException e)

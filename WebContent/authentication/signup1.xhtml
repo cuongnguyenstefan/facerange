@@ -4,8 +4,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui" template="/templates/general.xhtml">
-<f:view>
-		<f:event type="preRenderView" listener="#{authenticationBean.checkLogged}"></f:event>
+
+		
 	<ui:define name="title">
 		<h:outputText value="Please Sign Up" />
 	</ui:define>
@@ -31,7 +31,7 @@
 						value="#{authenticationBean.user.fullName}" required="true"
 						title="Enter your full Name!">
 						<f:validateLength minimum="2" />
-						<p:ajax event="keyup" update="fullNameMsg" global="false" />
+						<f:ajax event="keyup" update="fullNameMsg" global="false" />
 					</p:inputText>
 					<h:panelGroup>
 						<p:message id="fullNameMsg" for="fullName" />
@@ -64,7 +64,8 @@
 						<p:inputText id="userName" value="#{authenticationBean.user.userName}" required="true"
 						label="User Name" title="Enter your User Name!">
 						<f:validator validatorId="edu.mum.facerange.backingbean.impl.UserValidator"/>
-						 <p:ajax event="blur" render="userNameMsg" global="false"/>
+						
+						 <f:ajax event="blur" render="userNameMsg" global="false"/>
 						 
 					
 					</p:inputText>
@@ -126,5 +127,5 @@
 			</p:fieldset>
 		</h:form>
 	</ui:define>
-</f:view>
+
 </ui:composition>

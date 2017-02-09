@@ -4,7 +4,7 @@ import javax.faces.event.ComponentSystemEvent;
 
 public interface AuthenticationBean {
 	
-	public String login();
+	public void  login();
 	
 	public void checkLogin(ComponentSystemEvent event);
 	

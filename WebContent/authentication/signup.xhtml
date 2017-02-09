@@ -7,16 +7,15 @@
 <title>Signup</title>
 </head>
 <body>
-	<f:view>
-		<f:event type="preRenderView" listener="#{authenticationBean.checkLogged}"></f:event>
+	
 		<h1>Signup</h1>
 		<div class="container">
 			<div>
-				<h:inputText value="#{authenticationBean.user.username}"
+				<h:inputText value="#{authenticationBean.user.userName}"
 					rendered="true" />
 				<h:inputSecret value="#{authenticationBean.user.password}"
 					rendered="true" />
-				<h:inputText value="#{authenticationBean.user.fullname}"
+				<h:inputText value="#{authenticationBean.user.fullName}"
 					rendered="true" />
 				<h:inputText value="#{authenticationBean.user.gender}"
 					rendered="true" />
@@ -28,6 +27,6 @@
 				<h:commandButton action="#{authenticationBean.signup}" value="Login"></h:commandButton>
 			</div>
 		</div>
-	</f:view>
+	
 </body>
 </html>
