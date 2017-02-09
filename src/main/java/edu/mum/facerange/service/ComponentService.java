@@ -14,7 +14,7 @@ public interface ComponentService {
 	// and edit page
 	public Map<String, Object> getComponents(int userId);
 	
-	public boolean saveComponent(Component component, Service service);
+	public int saveComponent(Component component, Service service);
 	
 	public boolean saveBasicInfo(BasicInfo basicInfo, Service service);
 	

@@ -10,6 +10,4 @@ public interface EditComponentBean {
 	
 	public String removeImage(ComponentImage componentImage, int num);
 	
-	public String saveImage(ComponentImage componentImage);
-	
 }

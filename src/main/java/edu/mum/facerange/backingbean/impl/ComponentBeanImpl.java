@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -21,7 +21,7 @@ import edu.mum.facerange.service.ComponentService;
 import edu.mum.facerange.util.ConvertUtils;
 
 @Named("componentBean")
-@SessionScoped
+@RequestScoped
 public class ComponentBeanImpl implements ComponentBean, Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -28,10 +28,14 @@
 			<ui:include src="/sections/header.xhtml" />
 		</ui:insert>
 
+		<ui:insert name="menu">
+			<ui:include src="/sections/menuedit.xhtml" />
+		</ui:insert>
+
 		<div class="container">
-			<h:form>
-				<h:commandButton styleClass="btn-success" action="#{editComponentBean.editComponent}"
-					value="Save"></h:commandButton>
+			<h:form enctype="multipart/form-data">
+				<h:commandButton styleClass="btn-success btn-lg"
+					action="#{editComponentBean.editComponent}" value="Save"></h:commandButton>
 				<div class="row">
 					<div class="col-md-8">
 						<ui:insert name="edituser">

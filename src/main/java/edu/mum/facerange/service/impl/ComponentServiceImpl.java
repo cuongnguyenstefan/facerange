@@ -69,22 +69,24 @@ public class ComponentServiceImpl implements ComponentService {
 			case BASIC_INFO:
 				List<BasicInfo> byComponentId2 = componentBasicInfoDao.getByComponentId(c.getComponentId());
 				if (byComponentId2 != null) {
-//					Object object = map.get(ComponentType.BASIC_INFO.toString());
-//					if (object != null) {
-//						List<BasicInfo> cis = (List<BasicInfo>) object;
-//						byComponentId2.addAll(cis);
-//					}
+					// Object object =
+					// map.get(ComponentType.BASIC_INFO.toString());
+					// if (object != null) {
+					// List<BasicInfo> cis = (List<BasicInfo>) object;
+					// byComponentId2.addAll(cis);
+					// }
 					map.put(ComponentType.BASIC_INFO.toString(), byComponentId2);
 				}
 				break;
 			case SOCIAL_MEDIA:
 				List<SocialMedia> byComponentId3 = componentSocialMediaDao.getByComponentId(c.getComponentId());
 				if (byComponentId3 != null) {
-//					Object object = map.get(ComponentType.SOCIAL_MEDIA.toString());
-//					if (object != null) {
-//						List<SocialMedia> cis = (List<SocialMedia>) object;
-//						byComponentId3.addAll(cis);
-//					}
+					// Object object =
+					// map.get(ComponentType.SOCIAL_MEDIA.toString());
+					// if (object != null) {
+					// List<SocialMedia> cis = (List<SocialMedia>) object;
+					// byComponentId3.addAll(cis);
+					// }
 					map.put(ComponentType.SOCIAL_MEDIA.toString(), byComponentId3);
 				}
 				break;
@@ -96,17 +98,16 @@ public class ComponentServiceImpl implements ComponentService {
 	}
 
 	@Override
-	public boolean saveComponent(Component component, Service service) {
+	public int saveComponent(Component component, Service service) {
 		if (Service.CREATE.equals(service)) {
-			componentDao.addComponent(component);
-			return true;
+			return componentDao.addComponent(component);
 		} else if (Service.DELETE.equals(service)) {
 			componentDao.removeComponent(component.getComponentId());
-			return true;
+			return component.getComponentId();
 		} else if (Service.UPDATE.equals(service)) {
 			// not supported
 		}
-		return false;
+		return component.getComponentId();
 	}
 
 	@Override

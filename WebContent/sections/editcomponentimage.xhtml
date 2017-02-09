@@ -51,7 +51,6 @@
 						</div>
 						<div class="clearfix"></div>
 					</ui:fragment>
-					<h:form>
 					<ui:fragment rendered="#{empty image.image1}">
 						<p:fileUpload value="#{image.file1}" mode="simple" />
 					</ui:fragment>
@@ -61,8 +60,6 @@
 					<ui:fragment rendered="#{empty image.image3}">
 						<p:fileUpload value="#{image.file3}" mode="simple" />
 					</ui:fragment>
-					<h:commandButton action="#{editComponentBean.saveImage(image)}"></h:commandButton>
-					</h:form>
 				</div>
 			</ui:repeat>
 			<div class="panel-body">

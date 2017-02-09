@@ -35,7 +35,6 @@ public class ImageStoreDaoImpl implements ImageStoreDao {
 			ResultSet generatedKeys = statement.getGeneratedKeys();
 
 			connection.commit();
-			connection.close();
 			if (generatedKeys.next()) {
 				return generatedKeys.getInt(1);
 			}

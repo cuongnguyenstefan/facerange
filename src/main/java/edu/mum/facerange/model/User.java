@@ -4,11 +4,16 @@ package edu.mum.facerange.model;
 
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
-public class User {
+public class User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 225705509219450653L;
 	private Integer userId;
 	private String gender;
 	private String fullName;

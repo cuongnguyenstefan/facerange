@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -19,16 +19,16 @@ import edu.mum.facerange.repo.ImageStoreDao;
 import edu.mum.facerange.service.ComponentService;
 
 @Named("editComponentBean")
-@SessionScoped
+@RequestScoped
 public class EditComponentBeanImpl implements EditComponentBean, Serializable {
 
 	private Component component;
 
-	private BasicInfo basicInfo;
+	private BasicInfo basicInfo = new BasicInfo();
 
-	private ComponentImage componentImage;
+	private ComponentImage componentImage = new ComponentImage();
 
-	private SocialMedia socialMedia;
+	private SocialMedia socialMedia = new SocialMedia();
 
 	private static final long serialVersionUID = 1L;
 
@@ -52,7 +52,7 @@ public class EditComponentBeanImpl implements EditComponentBean, Serializable {
 	}
 
 	public BasicInfo getBasicInfo() {
-		if (basicInfo == null) {
+		if (basicInfo == null || basicInfo.getBasicinfoId() == 0) {
 			List<BasicInfo> basicInfos2 = getBasicInfos();
 			if (basicInfos2 != null && basicInfos2.size() > 0) {
 				basicInfo = basicInfos2.get(0);
@@ -74,7 +74,7 @@ public class EditComponentBeanImpl implements EditComponentBean, Serializable {
 	}
 
 	public SocialMedia getSocialMedia() {
-		if (socialMedia == null) {
+		if (socialMedia == null || socialMedia.getSocialmediaId() == null) {
 			List<SocialMedia> socialMedias2 = getSocialMedias();
 			if (socialMedias2 != null && socialMedias2.size() > 0) {
 				socialMedia = socialMedias2.get(0);
@@ -89,8 +89,8 @@ public class EditComponentBeanImpl implements EditComponentBean, Serializable {
 
 	@Override
 	public String addComponent() {
-		boolean saveComponent = componentService.saveComponent(component, Service.CREATE);
-		if (saveComponent) {
+		int saveComponent = componentService.saveComponent(component, Service.CREATE);
+		if (saveComponent > 0) {
 			if (basicInfo != null) {
 				componentService.saveBasicInfo(basicInfo, Service.CREATE);
 				basicInfo = null;
@@ -113,34 +113,79 @@ public class EditComponentBeanImpl implements EditComponentBean, Serializable {
 			if (basicInfo.getBasicinfoId() != 0) {
 				componentService.saveBasicInfo(basicInfo, Service.UPDATE);
 			} else {
+				Component comp = new Component();
+				comp.setComponentType(ComponentType.BASIC_INFO);
+				comp.setUserId(authenticationBean.getUser().getUserId());
+				int saveComponent = componentService.saveComponent(comp, Service.CREATE);
+				basicInfo.setComponentId(saveComponent);
 				componentService.saveBasicInfo(basicInfo, Service.CREATE);
 			}
 		}
 		if (componentImage != null) {
 			try {
-				if (componentImage.getFile1() != null) {
+				boolean changed = false;
+				if (componentImage.getFile1() != null && !"".equals(componentImage.getFile1().getFileName())) {
 					int saveImage = imageStoreDao.saveImage(componentImage.getFile1().getInputstream());
-					componentImage.setImage1(saveImage+"");
+					componentImage.setImage1(saveImage + "");
+					changed = true;
 				}
-				if (componentImage.getFile2() != null) {
+				if (componentImage.getFile2() != null && !"".equals(componentImage.getFile2().getFileName())) {
 					int saveImage = imageStoreDao.saveImage(componentImage.getFile2().getInputstream());
-					componentImage.setImage2(saveImage+"");
+					componentImage.setImage2(saveImage + "");
+					changed = true;
 				}
-				if (componentImage.getFile3() != null) {
+				if (componentImage.getFile3() != null && !"".equals(componentImage.getFile3().getFileName())) {
 					int saveImage = imageStoreDao.saveImage(componentImage.getFile3().getInputstream());
-					componentImage.setImage3(saveImage+"");
+					componentImage.setImage3(saveImage + "");
+					changed = true;
 				}
-				componentService.saveImageComponent(componentImage, Service.UPDATE);
+				if (changed) {
+					Component comp = new Component();
+					comp.setComponentType(ComponentType.COMPONENT_IMAGE);
+					comp.setUserId(authenticationBean.getUser().getUserId());
+					int saveComponent = componentService.saveComponent(comp, Service.CREATE);
+					componentImage.setComponentId(saveComponent);
+					componentService.saveImageComponent(componentImage, Service.CREATE);
+				}
 			} catch (Exception e) {
 				System.out.println("Exception trying to save images " + e.getMessage());
 			}
-			componentService.saveImageComponent(componentImage, Service.CREATE);
 		}
 		if (socialMedia != null) {
 			if (socialMedia.getSocialmediaId() != null) {
 				componentService.saveSocialMedia(socialMedia, Service.UPDATE);
 			} else {
+				Component comp = new Component();
+				comp.setComponentType(ComponentType.SOCIAL_MEDIA);
+				comp.setUserId(authenticationBean.getUser().getUserId());
+				int saveComponent = componentService.saveComponent(comp, Service.CREATE);
+				socialMedia.setComponentId(saveComponent);
 				componentService.saveSocialMedia(socialMedia, Service.CREATE);
+			}
+		}
+		for (ComponentImage ci : componentImages) {
+			try {
+				boolean changed = false;
+				if (ci.getFile1() != null && !"".equals(ci.getFile1().getFileName())) {
+					int saveImage = imageStoreDao.saveImage(ci.getFile1().getInputstream());
+					ci.setImage1(saveImage + "");
+					changed = true;
+				}
+				if (ci.getFile2() != null && !"".equals(ci.getFile2().getFileName())) {
+					int saveImage = imageStoreDao.saveImage(ci.getFile2().getInputstream());
+					ci.setImage2(saveImage + "");
+					changed = true;
+				}
+				if (ci.getFile3() != null && !"".equals(ci.getFile3().getFileName())) {
+					int saveImage = imageStoreDao.saveImage(ci.getFile3().getInputstream());
+					ci.setImage3(saveImage + "");
+					changed = true;
+				}
+				if (changed) {
+					componentService.saveImageComponent(ci, Service.UPDATE);
+				}
+			} catch (Exception e) {
+				System.out.println("Exception trying to save images " + e.getMessage());
 			}
 		}
 		return "index?faces-redirect=true";
@@ -195,25 +240,4 @@ public class EditComponentBeanImpl implements EditComponentBean, Serializable {
 		this.componentImages = componentImages;
 	}
 
-	@Override
-	public String saveImage(ComponentImage componentImage) {
-		try {
-			if (componentImage.getFile1() != null) {
-				int saveImage = imageStoreDao.saveImage(componentImage.getFile1().getInputstream());
-				componentImage.setImage1(saveImage+"");
-			}
-			if (componentImage.getFile2() != null) {
-				int saveImage = imageStoreDao.saveImage(componentImage.getFile2().getInputstream());
-				componentImage.setImage2(saveImage+"");
-			}
-			if (componentImage.getFile3() != null) {
-				int saveImage = imageStoreDao.saveImage(componentImage.getFile3().getInputstream());
-				componentImage.setImage3(saveImage+"");
-			}
-			componentService.saveImageComponent(componentImage, Service.UPDATE);
-		} catch (Exception e) {
-			System.out.println("Exception trying to save images " + e.getMessage());
-		}
-		return "editprofile?faces-redirect=true";
-	}
 }
