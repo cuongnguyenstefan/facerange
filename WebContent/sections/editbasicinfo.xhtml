@@ -14,11 +14,28 @@
 				<h3 class="panel-title">Basic Info</h3>
 			</div>
 			<div class="panel-body">
-				<ul class="list-group">
-					<li>From: <h:inputText value="#{editComponentBean.basicInfo.from}"></h:inputText></li>
-					<li>Living in: <h:inputText value="#{editComponentBean.basicInfo.city}"></h:inputText></li>
-					<li>Working as: <h:inputText value="#{editComponentBean.basicInfo.job}"></h:inputText></li>
-				</ul>
+				<div class="form-horizontal">
+					<div class="form-group">
+				    <h:outputLabel for="from" styleClass="control-label col-sm-4" value="From:"></h:outputLabel>
+				    <div class="col-sm-8">
+				      <h:inputText id="from" value="#{editComponentBean.basicInfo.from}" styleClass="form-control" />
+				    </div>
+				  </div>
+				  
+				  <div class="form-group">
+				    <h:outputLabel for="livingin" styleClass="control-label col-sm-4" value="Living in:"></h:outputLabel>
+				    <div class="col-sm-8">
+				      <h:inputText id="livingin" value="#{editComponentBean.basicInfo.city}" styleClass="form-control" />
+				    </div>
+				  </div>
+				  
+				  <div class="form-group">
+				    <h:outputLabel for="livingin" styleClass="control-label col-sm-4" value="Working as:"></h:outputLabel>
+				    <div class="col-sm-8">
+				      <h:inputText id="working" value="#{editComponentBean.basicInfo.job}" styleClass="form-control" />
+				    </div>
+				  </div>
+				</div>
 			</div>
 		</div>
 	</ui:composition>

@@ -33,15 +33,30 @@
 		</ui:insert>
 
 		<div class="container">
-			<ui>
-				<ui:repeat var="rs" value="#{searchBean.result}">
-					<li>
-						<h:outputLink value="../facerange/?userid=#{rs.userId}">
-							<h:outputText value="#{rs.fullName}"></h:outputText>
-						</h:outputLink>
-					</li>
-				</ui:repeat>
-			</ui>
+			<h2>Search results</h2>
+
+			<div class="table-container">
+				<table class="table table-filter">
+					<tbody>
+						<ui:repeat var="rs" value="#{searchBean.result}">
+						<tr>					
+							<td>
+								<div class="media">
+									<h:outputLink value="index.jsf?useid=#{rs.userId}" styleClass="pull-left">
+										<h:graphicImage value="image?id=#{rs.picture}" styleClass="media-photo" />
+									</h:outputLink>								
+									<div class="media-body">
+										<h4 class="title">
+											#{rs.fullName}
+										</h4>
+									</div>
+								</div>
+							</td>
+						</tr>
+						</ui:repeat>						
+					</tbody>
+				</table>
+			</div>
 		</div>
 		<footer>
 			<div class="container">

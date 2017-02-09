@@ -3,38 +3,47 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <head>
 <title>IGNORED</title>
 </head>
 <body>
 	<ui:composition>
-		<nav class="navbar navbar-default">
-		<div class="container">
+		<nav class="navbar navbar-default" role="navigation">
+			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#bs-example-navbar-collapse-1">
 					<span class="sr-only">Toggle navigation</span> <span
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
 			</div>
-			<div id="navbar" class="collapse navbar-collapse">
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse"
+				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li class="active"><h:outputLink value="index.jsf">Home</h:outputLink></li>
+					<li class="active"><h:outputLink value="index.jsf">Home</h:outputLink>
+					</li>
 					<li><h:outputLink value="editprofile.jsf">Profile</h:outputLink>
 					</li>
-					<li>
-						<h:form>
-							<h:inputText p:placeholder="Search.." value="#{searchBean.searchName}" styleClass="search-box-custom" />
-							<h:commandButton action="#{searchBean.search}" value="Search"></h:commandButton>
-						</h:form>
-					</li>
 				</ul>
+				<div class="col-sm-3 col-md-3">
+					<h:form styleClass="navbar-form" a:role="search">
+						<div class="input-group">
+							<h:inputText a:placeholder="Search..."
+								value="#{searchBean.searchName}" styleClass="form-control" />
+							<div class="input-group-btn">
+								<h:commandLink action="#{searchBean.search}" styleClass="btn btn-default">
+									<span class="glyphicon glyphicon-search"></span>
+								</h:commandLink>
+							</div>
+						</div>
+					</h:form>
+				</div>
 			</div>
-			<!--/.nav-collapse -->
-		</div>
+			<!-- /.navbar-collapse -->
 		</nav>
 	</ui:composition>
 </body>
