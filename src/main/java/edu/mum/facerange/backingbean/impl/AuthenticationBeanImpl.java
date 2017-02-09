@@ -129,4 +129,8 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 		return "login?faces-redirect=true";
 	}
 
+	public String logout() {
+		this.user = null;
+		return "login?faces-redirect=true";
+	}
 }
