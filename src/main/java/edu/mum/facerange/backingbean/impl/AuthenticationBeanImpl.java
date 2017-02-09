@@ -68,8 +68,6 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 			url="signup1.jsf";//replace by index 
 		}
 		
-		password = "";
-		return "login?faces-redirect=true";
 		else
 		{
 			password="";
