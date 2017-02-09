@@ -197,4 +197,15 @@ public class PostBeanImpl implements Serializable {
 		return count + " Likes";
 
 	}
+	
+	public int getPicture(int userId) {
+		
+		User user = userService.getUser(userId);
+		if (user != null) {
+			return user.getPicture();
+		}
+		
+		return 0;
+
+	}
 }
