@@ -55,7 +55,7 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 	@Inject
 	private ImageStoreDao imageStoreDao;
 
-	private User user;
+	private User user = new User();
 
 	@Override
 	public void login() {
@@ -131,15 +131,17 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 	@Override
 	public String signup() {
 		try {
-			//add the 
-			int saveImage = imageStoreDao.saveImage(profilepic.getInputstream());
-			//this.user.setPicture(saveImage);
-			user.setPicture(saveImage);
+			if (profilepic != null && !"".equals(profilepic.getFileName())) {
+				//add the 
+				int saveImage = imageStoreDao.saveImage(profilepic.getInputstream());
+				//this.user.setPicture(saveImage);
+				user.setPicture(saveImage);
+			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		auth.addUser(this.user);
+		user = new User();
 		return "login?faces-redirect=true";
 	}
 

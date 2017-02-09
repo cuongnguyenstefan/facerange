@@ -1,16 +1,22 @@
 package edu.mum.facerange.service.impl;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
+import java.io.Serializable;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import edu.mum.facerange.model.User;
+import edu.mum.facerange.repo.UserDao;
 import edu.mum.facerange.service.AuthenticationService;
-import edu.mum.facerange.repo.*;
+@Named("authenticationService")
 @ApplicationScoped
-public class AuthenticationServiceimpl implements AuthenticationService {
+public class AuthenticationServiceimpl implements AuthenticationService, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Inject 
 	UserDao userDao;
 	@Override
