@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,20 +16,20 @@ import edu.mum.facerange.util.DatabaseUtilities;
 //@Named("componentImageDao")
 //@ApplicationScoped
 public class ComponentImageDaoImpl implements ComponentImageDao, Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3064116145219498479L;
 
 	private String SELECT_BY_COMPONENTID = "SELECT * FROM componentimage WHERE componentid = ?";
-	
+
 	private String INSERT = "INSERT into componentimage(componentid, image1, image2, image3) values (?, ?, ?, ?)";
-	
+
 	private String DELETE_BY_COMPONENTID = "DELETE FROM componentimage WHERE componentid = ?";
-	
-	private String UPDATE = "UPDATE componentimage SET image1 = ? image2 = ? image3 = ? WHERE imageid = ?";
-	
+
+	private String UPDATE = "UPDATE componentimage SET image1 = ?, image2 = ?, image3 = ? WHERE imageid = ?";
+
 	private String DELETE_BY_ID = "DELETE FROM componentimage WHERE imageid = ?";
 
 	public List<ComponentImage> getByComponentId(int id) {
@@ -46,7 +47,7 @@ public class ComponentImageDaoImpl implements ComponentImageDao, Serializable {
 		}
 		return null;
 	}
-	
+
 	public boolean add(ComponentImage componentImage) {
 		try {
 			Connection con = DatabaseUtilities.getConnection();
@@ -62,7 +63,7 @@ public class ComponentImageDaoImpl implements ComponentImageDao, Serializable {
 		}
 		return true;
 	}
-	
+
 	public boolean removeByComponentId(int id) {
 		try {
 			Connection con = DatabaseUtilities.getConnection();
@@ -75,10 +76,10 @@ public class ComponentImageDaoImpl implements ComponentImageDao, Serializable {
 		}
 		return true;
 	}
-	
+
 	private List<ComponentImage> listComponentImageFromResultSet(ResultSet rs) throws SQLException {
 		List<ComponentImage> componentImages = new ArrayList<ComponentImage>();
-		
+
 		while (rs.next()) {
 			ComponentImage componentImage = new ComponentImage();
 			componentImage.setComponentId(rs.getInt("componentid"));
@@ -88,7 +89,7 @@ public class ComponentImageDaoImpl implements ComponentImageDao, Serializable {
 			componentImage.setImageId(rs.getInt("imageid"));
 			componentImages.add(componentImage);
 		}
-		
+
 		return componentImages;
 	}
 
@@ -111,9 +112,21 @@ public class ComponentImageDaoImpl implements ComponentImageDao, Serializable {
 		try {
 			Connection con = DatabaseUtilities.getConnection();
 			PreparedStatement prepareStatement = con.prepareStatement(UPDATE);
-			prepareStatement.setString(1, componentImage.getImage1());
-			prepareStatement.setString(2, componentImage.getImage2());
-			prepareStatement.setString(3, componentImage.getImage3());
+			if (componentImage.getImage1() != null) {
+				prepareStatement.setString(1, componentImage.getImage1());
+			} else {
+				prepareStatement.setNull(1, Types.INTEGER);
+			}
+			if (componentImage.getImage2() != null) {
+				prepareStatement.setString(2, componentImage.getImage2());
+			} else {
+				prepareStatement.setNull(2, Types.INTEGER);
+			}
+			if (componentImage.getImage3() != null) {
+				prepareStatement.setString(3, componentImage.getImage3());
+			} else {
+				prepareStatement.setNull(3, Types.INTEGER);
+			}
 			prepareStatement.setInt(4, componentImage.getImageId());
 			prepareStatement.executeUpdate();
 		} catch (SQLException e) {

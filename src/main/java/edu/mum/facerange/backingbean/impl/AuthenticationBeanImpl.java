@@ -67,6 +67,9 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 			System.out.println(user.getEmail());
 			url="signup1.jsf";//replace by index 
 		}
+		
+		password = "";
+		return "login?faces-redirect=true";
 		else
 		{
 			password="";
@@ -93,17 +96,17 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 
 	@Override
 	public void checkLogin(ComponentSystemEvent event) {
-		if (user.getPassword() == null || "".equals(user.getPassword())) {
+		if (user == null || user.getPassword() == null || "".equals(user.getPassword())) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			ConfigurableNavigationHandler handler = (ConfigurableNavigationHandler) context.getApplication()
 					.getNavigationHandler();
-			handler.performNavigation("authentication/login");
+			handler.performNavigation("login");
 		}
 	}
 
 	@Override
 	public void checkLogged(ComponentSystemEvent event) {
-		if (user.getPassword() != null && !"".equals(user.getPassword())) {
+		if (user != null && user.getPassword() != null && !"".equals(user.getPassword())) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			ConfigurableNavigationHandler handler = (ConfigurableNavigationHandler) context.getApplication()
 					.getNavigationHandler();
@@ -140,7 +143,11 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 			e.printStackTrace();
 		}
 		auth.addUser(this.user);
-		return "login1";
+		return "login?faces-redirect=true";
 	}
 
+	public String logout() {
+		this.user = null;
+		return "login?faces-redirect=true";
+	}
 }

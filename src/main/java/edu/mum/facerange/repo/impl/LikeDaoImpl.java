@@ -32,44 +32,61 @@ public class LikeDaoImpl implements LikeDao {
 		String sql = "SELECT count(*) as count FROM likes WHERE postid = ?";
 		try {
 			Connection con = DatabaseUtilities.getConnection();
-	    	PreparedStatement prepareStatement = con.prepareStatement(sql);
+			PreparedStatement prepareStatement = con.prepareStatement(sql);
 			prepareStatement.setInt(1, postId);
-			
-	        ResultSet rs = prepareStatement.executeQuery();
-	        
-	        if (rs.next()) {        	
-	        	result = rs.getInt(1);
-	        }
-	        
-	        con.close();
-	    } catch (SQLException e ) {
-	    	System.out.println("Error while counting likes: " + e.getMessage());
-	    }
-		
+
+			ResultSet rs = prepareStatement.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("Error while counting likes: " + e.getMessage());
+		}
+
 		return result;
+	}
+
+	@Override
+	public void deleteLike(int postId, int userId) {
+		String sql = "DELETE FROM likes WHERE postid = ? and userid = ?";
+
+		try {
+			Connection con = DatabaseUtilities.getConnection();
+			PreparedStatement prepareStatement = con.prepareStatement(sql);
+			prepareStatement.setInt(1, postId);
+			prepareStatement.setInt(2, userId);
+			prepareStatement.executeUpdate();
+
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("Error while delete likes: " + e.getMessage());
+		}
 	}
 
 	@Override
 	public boolean liked(int postId, int userId) {
 		int result = 0;
 		String sql = "SELECT count(*) as count FROM likes WHERE postid = ? and userid = ?";
-		
+
 		try {
 			Connection con = DatabaseUtilities.getConnection();
-	    	PreparedStatement prepareStatement = con.prepareStatement(sql);
+			PreparedStatement prepareStatement = con.prepareStatement(sql);
 			prepareStatement.setInt(1, postId);
 			prepareStatement.setInt(2, userId);
-	        ResultSet rs = prepareStatement.executeQuery();
-	        
-	        if (rs.next()) {        	
-	        	result = rs.getInt(1);
-	        }
-	        
-	        con.close();
-	    } catch (SQLException e ) {
-	    	System.out.println("Error while counting likes: " + e.getMessage());
-	    }
-		
+			ResultSet rs = prepareStatement.executeQuery();
+
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("Error while counting likes: " + e.getMessage());
+		}
+
 		return result > 0;
 	}
 

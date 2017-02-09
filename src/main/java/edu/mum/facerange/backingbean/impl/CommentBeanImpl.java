@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
+import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
@@ -65,7 +64,7 @@ public class CommentBeanImpl implements Serializable {
 		Comment objComment = new Comment();		
 		
 		
-		objComment.setUserId(getLogUser().getUserId());
+		objComment.setUserId(getLoggedUser().getUserId());
 		objComment.setPostId(postid);
 		objComment.setComment(comment);
 
@@ -74,14 +73,13 @@ public class CommentBeanImpl implements Serializable {
 		commentInput.resetValue();
 	}
 	
-	public User getLogUser() {
-		//Get Logged User
-		//AuthenticationBeanImpl authenBean = (AuthenticationBeanImpl) FacesContext.getCurrentInstance().
-		//				getExternalContext().getSessionMap().get("authenticationBean");
-		///authenBean.getUser();
-		User user = new User();
-		user.setUserId(9);
-		user.setFullName("Tan Luong");
-		return user;
+	public AuthenticationBeanImpl getAuthenBean(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        Application application = context.getApplication();
+        return application.evaluateExpressionGet(context, "#{authenticationBean}", AuthenticationBeanImpl.class);
+    }
+	
+	public User getLoggedUser() {
+		return getAuthenBean().getUser();
 	}
 }

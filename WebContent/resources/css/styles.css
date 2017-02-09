@@ -4,7 +4,6 @@ header{
 	color:#fff;
 	min-height: 100px;
 	padding-top: 25px;
-	margin-bottom: 30px;
 }
 
 header form{
@@ -156,6 +155,11 @@ footer{
 
 
 
+.logout-link, .logout-link:link, .logout-link:hover {
+	text-decoration: none;
+	font-weight: bold;
+	color: #fff;
+}
 .edit-button, .edit-button:link, .edit-button:hover, .edit-button:active {
 	text-decoration: none;
 }

@@ -38,8 +38,4 @@ public class BasicInfo {
 		this.job = job;
 	}
 	
-	public boolean empty() {
-		return (from == null || from == "") && (city == null || city == "") && (job == null || job == "");
-	}
-	
 }
