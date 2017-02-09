@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -62,7 +63,6 @@ public class UserDaoImp implements UserDao {
 				user.setPicture(rs.getInt("picture"));
 			} 
 
-			con.close();
 
 		} catch (SQLException e) {
 			System.out.println("Error while adding user: " + e.getMessage());
@@ -80,8 +80,9 @@ public class UserDaoImp implements UserDao {
 	public boolean checkAvailable(String value) {
 		ResultSet rs;
 		boolean aval = false;
+		Connection con = null;
 		try {
-			Connection con = DatabaseUtilities.getConnection();
+			con = DatabaseUtilities.getConnection();
 			String query = "select * from users where username='" + value + "'";
 			PreparedStatement pr = con.prepareStatement(query);
 			rs = pr.executeQuery();
@@ -89,6 +90,12 @@ public class UserDaoImp implements UserDao {
 
 		} catch (SQLException e) {
 			System.out.println("Error while finding user: " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return aval;
 
@@ -140,7 +147,6 @@ public class UserDaoImp implements UserDao {
 				user.setPicture(rs.getInt("picture"));
 			}
 			
-			con.close();
 
 		} catch (SQLException e) {
 			System.out.println("Error while adding user: " + e.getMessage());
@@ -153,6 +159,50 @@ public class UserDaoImp implements UserDao {
 		}
 
 		return user;
+	}
+
+	@Override
+	public List<User> searchUser(String name) {
+		String search = "SELECT * FROM users WHERE fullname LIKE ?";
+		
+		Connection con = null;
+		try {
+			con = DatabaseUtilities.getConnection();
+			PreparedStatement pr = con.prepareStatement(search);
+			pr.setString(1, "%" + name + "%");
+			ResultSet rs = pr.executeQuery();
+			return listUserFromResultSet(rs);
+		} catch (SQLException e) {
+			System.out.println("Error while adding user: " + e.getMessage());
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return null;
+	}
+	
+	private List<User> listUserFromResultSet(ResultSet rs) throws SQLException {
+		List<User> users = new ArrayList<User>();
+
+		while (rs.next()) {
+			User user = new User();
+			user.setUserId(rs.getInt("userid"));
+			user.setEmail(rs.getString("email"));
+			user.setUserName(rs.getString("username"));
+			user.setDob(rs.getDate("dob"));
+			user.setFullName(rs.getString("fullname"));
+			user.setGender(rs.getString("gender"));
+			user.setPassword(rs.getString("password"));
+			user.setPicture(rs.getInt("picture"));
+
+			users.add(user);
+		}
+
+		return users;
 	}
 
 }

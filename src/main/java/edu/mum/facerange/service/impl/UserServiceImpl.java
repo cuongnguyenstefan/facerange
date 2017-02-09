@@ -1,5 +1,7 @@
 package edu.mum.facerange.service.impl;
 
+import java.util.List;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
@@ -16,6 +18,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUser(int userId) {
 		return userRepo.getUser(userId);
+	}
+
+	@Override
+	public List<User> searchUser(String name) {
+		return userRepo.searchUser(name);
 	}
 
 }

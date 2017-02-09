@@ -16,7 +16,7 @@ public interface UserDao {
 	public List<User> allUSer();
 	public boolean checkAvailable(String value);
 	
-	
+	public List<User> searchUser(String name);
 
 	public User findUserByEmail(String email);
 
