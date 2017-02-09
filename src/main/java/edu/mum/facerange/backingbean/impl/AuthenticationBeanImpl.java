@@ -79,7 +79,7 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 
 	@Override
 	public void checkLogin(ComponentSystemEvent event) {
-		if (user.getPassword() == null || "".equals(user.getPassword())) {
+		if (user == null || user.getPassword() == null || "".equals(user.getPassword())) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			ConfigurableNavigationHandler handler = (ConfigurableNavigationHandler) context.getApplication()
 					.getNavigationHandler();
@@ -89,7 +89,7 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 
 	@Override
 	public void checkLogged(ComponentSystemEvent event) {
-		if (user.getPassword() != null && !"".equals(user.getPassword())) {
+		if (user != null && user.getPassword() != null && !"".equals(user.getPassword())) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			ConfigurableNavigationHandler handler = (ConfigurableNavigationHandler) context.getApplication()
 					.getNavigationHandler();
