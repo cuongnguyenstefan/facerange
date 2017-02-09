@@ -15,7 +15,10 @@
 			<h:graphicImage value="#{resource['images:logo.png']}"></h:graphicImage>
 			
 			<div class="pull-right">
-				<strong>Welcome, <h:outputText value="#{postBean.loggedUser.fullName}" />!</strong>
+				<strong>Welcome, <h:outputText value="#{postBean.loggedUser.fullName}" /></strong>
+				&nbsp;|&nbsp;
+				<h:outputLink styleClass="logout-link"><span class="glyphicon glyphicon-log-out"></span> Log out</h:outputLink>		
+				
 			</div>
 			
 		</div>
