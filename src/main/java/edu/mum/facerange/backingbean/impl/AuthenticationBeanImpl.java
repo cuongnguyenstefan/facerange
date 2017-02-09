@@ -63,8 +63,9 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 		if (user != null) {
 			return "index?faces-redirect=true";
 		}
+		
 		password = "";
-		return "authentication/login?faces-redirect=true";
+		return "login?faces-redirect=true";
 	}
 
 	// @Override
@@ -83,7 +84,7 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 			FacesContext context = FacesContext.getCurrentInstance();
 			ConfigurableNavigationHandler handler = (ConfigurableNavigationHandler) context.getApplication()
 					.getNavigationHandler();
-			handler.performNavigation("authentication/login");
+			handler.performNavigation("login");
 		}
 	}
 
@@ -125,7 +126,7 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 			e.printStackTrace();
 		}
 		auth.addUser(this.user);
-		return "login1";
+		return "login?faces-redirect=true";
 	}
 
 }

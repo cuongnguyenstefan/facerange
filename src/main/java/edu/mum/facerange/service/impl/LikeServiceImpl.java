@@ -25,4 +25,8 @@ public class LikeServiceImpl implements LikeService{
 		return likeRepo.liked(postId, userId);
 	}
 
+	@Override
+	public void deleteLike(int postId, int userId) {
+		likeRepo.deleteLike(postId, userId);
+	}
 }
