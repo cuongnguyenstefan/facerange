@@ -3,6 +3,7 @@ package edu.mum.facerange.backingbean.impl;
 import java.io.IOException;
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.context.FacesContext;
@@ -141,8 +142,12 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 			e.printStackTrace();
 		}
 		auth.addUser(this.user);
-		user = new User();
 		return "login?faces-redirect=true";
+	}
+	
+	@PostConstruct
+	public void init() {
+	    user = new User();
 	}
 
 	public String logout() {
