@@ -15,11 +15,23 @@
 					<h3 class="panel-title">Basic Info</h3>
 				</div>
 				<div class="panel-body">
-					<ul>
-						<li><h:outputText value="From #{basicInfo.from}" rendered="#{not empty basicInfo.from}"></h:outputText></li>
-						<li><h:outputText value="Living in #{basicInfo.city}" rendered="#{not empty basicInfo.city}"></h:outputText></li>
-						<li><h:outputText value="Working as #{basicInfo.job}" rendered="#{not empty basicInfo.job}"></h:outputText></li>
-					</ul>
+					<div class="row">
+						<div class="col-sm-12">
+							<h:outputText value="From #{basicInfo.from}" rendered="#{not empty basicInfo.from}" />
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-12">
+							<h:outputText value="Living in #{basicInfo.city}" rendered="#{not empty basicInfo.city}" />
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-12">
+							<h:outputText value="Working as #{basicInfo.job}" rendered="#{not empty basicInfo.job}" />
+						</div>
+					</div>
 				</div>
 			</div>
 		</ui:repeat>
