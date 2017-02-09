@@ -3,7 +3,6 @@ package edu.mum.facerange.backingbean.impl;
 import java.io.IOException;
 import java.io.Serializable;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.context.FacesContext;
@@ -19,7 +18,7 @@ import edu.mum.facerange.repo.ImageStoreDao;
 import edu.mum.facerange.service.AuthenticationService;
 
 @Named("authenticationBean")
-@ApplicationScoped
+@SessionScoped
 public class AuthenticationBeanImpl implements AuthenticationBean, Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -65,13 +64,13 @@ public class AuthenticationBeanImpl implements AuthenticationBean, Serializable 
 		String url;
 		if (user != null) {
 			System.out.println(user.getEmail());
-			url="signup1.jsf";//replace by index 
+			url="index.jsf";//replace by index 
 		}
 		
 		else
 		{
 			password="";
-			url="login1.jsf";
+			url="login.jsf";
 		}
 			try {
 				FacesContext.getCurrentInstance().getExternalContext().redirect(url);
